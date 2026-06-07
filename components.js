@@ -219,22 +219,42 @@ document.addEventListener('submit', function(e) {
 });
 /* ==========================================
    修复顶部栏和 Footer 图标大小（精致版）
-   适用于动态注入的 SVG
    ========================================== */
-.tb-item svg,
-.f-contact-row svg,
-.footer-bar svg {
-    width: 13px !important;       /* 图标宽度 */
-    height: 13px !important;      /* 图标高度 */
-    vertical-align: middle !important; /* 保持和文字对齐 */
-    margin-right: 5px !important; /* 图标和文字间距 */
+
+/* Topbar 所有图标 */
+.topbar .tb-item svg,
+.topbar svg {
+    width: 14px !important;
+    height: 14px !important;
+    min-width: 14px !important;
+    vertical-align: middle !important;
+    margin-right: 6px !important;
+    flex-shrink: 0 !important;
 }
-.tb-item svg,
-.f-contact-row svg,
-.footer-bar svg {
-    width: 13px !important;
-    height: 13px !important;
-    max-width: 13px !important;
-    max-height: 13px !important;
-    display: inline-block !important;
+
+/* Footer 联系方式的图标 */
+.site-footer .f-contact-row svg,
+.site-footer .f-contact svg {
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    vertical-align: middle !important;
+    margin-right: 8px !important;
+    flex-shrink: 0 !important;
+}
+
+/* Footer 社交图标（如果不是图标库的话保持原样） */
+.f-social {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* WhatsApp 浮动按钮保持原大小 */
+.wa-btn svg,
+.wa-float svg {
+    width: 24px !important;
+    height: 24px !important;
 }
