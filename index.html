@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Dongguan Siyin Sports Goods – Neoprene & Laminated Fabric Manufacturer | OEM/ODM</title>
 <meta name="description" content="Professional neoprene and laminated fabric manufacturer in Dongguan, China. CR/SBR/SCR neoprene sheets, custom fabric lamination, OEM/ODM for wetsuits, bottle sleeves, sports supports. Fast 3-7 day sampling.">
 <meta name="keywords" content="neoprene manufacturer, neoprene lamination, CR neoprene, SBR neoprene, wetsuit material, neoprene OEM, Dongguan neoprene, fabric lamination China">
@@ -10,157 +10,1318 @@
 <meta property="og:description" content="Premium neoprene lamination manufacturer. Custom CR/SBR/SCR neoprene with polyester, spandex, nylon lamination. 3-day sampling, low MOQ.">
 <link rel="stylesheet" href="style.css">
 <style>
+/* ── Base Reset ── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --blue: #0033A0;
+  --blue-dk: #002280;
+  --blue-lt: #1A4FC4;
+  --blue-bg: #EEF2FF;
+  --yellow: #F5A623;
+  --green: #22C55E;
+  --red: #EF4444;
+  --white: #FFFFFF;
+  --gray-bg: #F4F6FA;
+  --gray-lt: #F8F9FC;
+  --gray-bd: #E5E8EF;
+  --text: #1A1A2E;
+  --mid: #4A5568;
+  --muted: #8A96A8;
+  --max: 1200px;
+  --f: 'Inter', system-ui, -apple-system, sans-serif;
+  --shadow: 0 2px 16px rgba(0,0,0,.08);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,.12);
+  --radius: 8px;
+}
+
+body {
+  font-family: var(--f);
+  background: #fff;
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+.container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.section {
+  padding: 80px 0;
+}
+.section-sm {
+  padding: 56px 0;
+}
+.section-tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 12px;
+  background: var(--blue-bg);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+.section-title {
+  font-size: clamp(24px, 3vw, 38px);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+.section-sub {
+  font-size: 15px;
+  color: var(--mid);
+  max-width: 600px;
+}
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: all .2s;
+  border: none;
+  font-family: var(--f);
+}
+.btn-lg {
+  padding: 14px 30px;
+  font-size: 15px;
+}
+.btn-blue {
+  background: var(--blue);
+  color: #fff;
+}
+.btn-blue:hover {
+  background: var(--blue-dk);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--blue);
+  border: 2px solid var(--blue);
+}
+.btn-outline:hover {
+  background: var(--blue);
+  color: #fff;
+}
+.btn-ghost {
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255,255,255,.5);
+}
+.btn-ghost:hover {
+  background: rgba(255,255,255,.12);
+  border-color: #fff;
+}
+.btn-white {
+  background: #fff;
+  color: var(--blue);
+}
+.btn-white:hover {
+  background: var(--blue-bg);
+}
+
+/* ── Topbar ── */
+.topbar {
+  background: #FFFFFF;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--gray-bd);
+}
+.topbar-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.topbar-left, .topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.topbar-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--mid);
+}
+.topbar-item a {
+  color: var(--mid);
+  transition: color .2s;
+}
+.topbar-item a:hover {
+  color: var(--blue);
+}
+.topbar-item svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--mid);
+  fill: none;
+  stroke-width: 2;
+  flex-shrink: 0;
+}
+
+/* ── Nav ── */
+.nav {
+  background: #fff;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 500;
+}
+.nav-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 40px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.logo-mark {
+  width: 44px;
+  height: 44px;
+  background: var(--blue);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logo-mark span {
+  font-weight: 900;
+  font-size: 18px;
+  color: #fff;
+}
+.logo-info strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--blue);
+  line-height: 1.2;
+}
+.logo-info em {
+  font-style: normal;
+  font-size: 10px;
+  color: var(--muted);
+}
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.nav-item {
+  position: relative;
+}
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 14px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text);
+  border-radius: 6px;
+  transition: all .18s;
+  cursor: pointer;
+}
+.nav-link:hover, .nav-link.active {
+  color: var(--blue);
+  background: rgba(0,51,160,.06);
+}
+.nav-link svg {
+  width: 12px;
+  height: 12px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.5;
+}
+.dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  background: #fff;
+  border: 1px solid var(--gray-bd);
+  border-radius: 10px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.13);
+  padding: 8px;
+  min-width: 210px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: all .2s;
+  z-index: 600;
+}
+.nav-item:hover .dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.dropdown a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--mid);
+  border-radius: 6px;
+  transition: all .15s;
+}
+.dropdown a:hover {
+  background: var(--blue-bg);
+  color: var(--blue);
+}
+.dropdown a svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--blue);
+  fill: none;
+  stroke-width: 1.8;
+}
+.nav-actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
 /* ── Hero ── */
-.hero{position:relative;background:var(--blue);overflow:hidden;min-height:88vh;display:flex;align-items:center}
-.hero-bg-photo{position:absolute;right:0;top:0;bottom:0;width:60%;background:url('images/hero-factory.jpg') center/cover no-repeat}
-.hero-bg-photo::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--blue) 0%,rgba(0,33,160,.5) 45%,transparent 100%)}
-.hero-grid{position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.05) 1px,transparent 0);background-size:36px 36px}
-.hero-content{position:relative;z-index:2;padding:80px 0}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:7px 14px;border-radius:4px;margin-bottom:24px}
-.hero-eyebrow-icon{color:var(--yellow);font-size:17px}
-.hero-eyebrow-text{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--yellow)}
-.hero-h1{font-size:clamp(42px,5.5vw,72px);font-weight:900;line-height:.98;color:#fff;text-transform:uppercase;letter-spacing:-1.5px;margin-bottom:20px}
-.hero-h1 span{color:var(--yellow)}
-.hero-desc{font-size:clamp(14px,1.2vw,16.5px);color:rgba(255,255,255,.72);max-width:480px;line-height:1.75;margin-bottom:32px}
-.hero-desc strong{color:#fff;font-weight:600}
-.hero-feats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:38px}
-.feat-chip{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:8px 14px;border-radius:6px}
-.feat-chip svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:1.8;flex-shrink:0}
-.feat-chip-label{display:flex;flex-direction:column}
-.feat-chip-name{font-size:11.5px;font-weight:700;color:#fff;line-height:1.2}
-.feat-chip-sub{font-size:10px;color:rgba(255,255,255,.5);line-height:1.2}
-.hero-cta{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.hero-badge{position:absolute;bottom:36px;right:80px;background:rgba(255,255,255,.95);border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 32px rgba(0,0,0,.2);z-index:2;cursor:pointer;transition:transform .2s}
-.hero-badge:hover{transform:scale(1.04)}
-.hero-badge-play{width:44px;height:44px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.hero-badge-play svg{width:18px;height:18px;fill:#fff;margin-left:3px}
-.hero-badge-text{line-height:1.3}
-.hero-badge-text strong{display:block;font-size:13px;font-weight:700;color:var(--text)}
-.hero-badge-text span{font-size:11px;color:var(--muted)}
+.hero {
+  position: relative;
+  background: var(--blue);
+  overflow: hidden;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+}
+.hero-bg-photo {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 60%;
+  background: url('images/hero-factory.jpg') center/cover no-repeat;
+}
+.hero-bg-photo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--blue) 0%, rgba(0,33,160,.5) 45%, transparent 100%);
+}
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,.05) 1px, transparent 0);
+  background-size: 36px 36px;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 60px 0;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.2);
+  padding: 6px 14px;
+  border-radius: 40px;
+  margin-bottom: 24px;
+}
+.hero-eyebrow-text {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
+.hero-h1 {
+  font-size: clamp(38px, 5vw, 68px);
+  font-weight: 900;
+  line-height: 1;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: -1.5px;
+  margin-bottom: 20px;
+}
+.hero-h1 span {
+  color: var(--yellow);
+}
+.hero-desc {
+  font-size: clamp(14px, 1.2vw, 16px);
+  color: rgba(255,255,255,.75);
+  max-width: 500px;
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+.hero-feats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.feat-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.2);
+  padding: 8px 16px;
+  border-radius: 40px;
+}
+.feat-chip svg {
+  width: 18px;
+  height: 18px;
+  stroke: #fff;
+  fill: none;
+  stroke-width: 1.8;
+}
+.feat-chip-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+}
+.feat-chip-sub {
+  font-size: 10px;
+  color: rgba(255,255,255,.5);
+}
+.hero-cta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.hero-badge {
+  position: absolute;
+  bottom: 30px;
+  right: 60px;
+  background: rgba(255,255,255,.95);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.2);
+  z-index: 2;
+  cursor: pointer;
+}
+.hero-badge-play {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-badge-play svg {
+  width: 16px;
+  height: 16px;
+  fill: #fff;
+}
+.hero-badge-text strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+}
+.hero-badge-text span {
+  font-size: 10px;
+  color: var(--muted);
+}
 
-/* ── Stats bar ── */
-.stats-bar{background:#fff;box-shadow:0 4px 24px rgba(0,0,0,.08)}
-.stats-inner{max-width:var(--max);margin:0 auto;padding:0 40px;display:flex;align-items:stretch}
-.stat-col{flex:1;display:flex;align-items:center;gap:14px;padding:24px 28px;border-right:1px solid var(--gray-bd);transition:background .2s}
-.stat-col:hover{background:var(--gray-lt)}
-.stat-col:last-child{border-right:none}
-.stat-icon{width:44px;height:44px;border-radius:10px;background:var(--blue-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.stat-icon svg{width:22px;height:22px;stroke:var(--blue);fill:none;stroke-width:1.8}
-.stat-num{font-size:clamp(22px,2.5vw,30px);font-weight:900;color:var(--blue);line-height:1;margin-bottom:2px}
-.stat-lbl{font-size:11.5px;color:var(--muted);line-height:1.4}
-.cert-cols{display:flex;gap:0;border-left:1px solid var(--gray-bd)}
-.cert-col{padding:18px 22px;border-right:1px solid var(--gray-bd);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:background .2s}
-.cert-col:hover{background:var(--gray-lt)}
-.cert-col:last-child{border-right:none}
-.cert-logo-iso{font-size:20px;font-weight:900;color:#0055A4;letter-spacing:-.5px}
-.cert-logo-oeko{font-size:9.5px;font-weight:700;color:#3a7d44;text-align:center;line-height:1.25}
-.cert-logo-sgs{font-size:20px;font-weight:900;color:#CC0000;letter-spacing:-1px}
-.cert-sub{font-size:9.5px;color:var(--muted);text-align:center}
+/* ── Stats Bar ── */
+.stats-bar {
+  background: #fff;
+  box-shadow: 0 4px 24px rgba(0,0,0,.06);
+}
+.stats-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+.stat-col {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 24px 20px;
+  border-right: 1px solid var(--gray-bd);
+}
+.stat-col:last-child {
+  border-right: none;
+}
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--blue-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.stat-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--blue);
+  fill: none;
+  stroke-width: 1.8;
+}
+.stat-num {
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--blue);
+  line-height: 1;
+}
+.stat-lbl {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.cert-cols {
+  display: flex;
+  border-left: 1px solid var(--gray-bd);
+}
+.cert-col {
+  padding: 16px 20px;
+  border-right: 1px solid var(--gray-bd);
+  text-align: center;
+}
+.cert-logo-iso {
+  font-size: 20px;
+  font-weight: 900;
+  color: #0055A4;
+}
+.cert-logo-oeko {
+  font-size: 9px;
+  font-weight: 700;
+  color: #3a7d44;
+}
+.cert-logo-sgs {
+  font-size: 20px;
+  font-weight: 900;
+  color: #CC0000;
+}
+.cert-sub {
+  font-size: 9px;
+  color: var(--muted);
+}
 
-/* ── Why + What ── */
-.why-what{background:#fff}
-.why-what-grid{display:grid;grid-template-columns:1fr 1px 1fr;gap:0;align-items:start;max-width:var(--max);margin:0 auto;padding:80px 40px}
-.divider-col{background:var(--gray-bd);align-self:stretch}
-.why-col{padding-right:48px}
-.what-col{padding-left:48px}
-.why-items{display:flex;flex-direction:column;gap:22px;margin-bottom:28px}
-.why-item{display:flex;gap:14px;align-items:flex-start}
-.why-item-icon{width:40px;height:40px;border-radius:9px;background:var(--blue-bg);border:1px solid rgba(0,51,160,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.why-item-icon svg{width:20px;height:20px;stroke:var(--blue);fill:none;stroke-width:1.8}
-.why-item-title{font-size:13.5px;font-weight:700;color:var(--text);margin-bottom:2px}
-.why-item-desc{font-size:12.5px;color:var(--mid)}
-.why-photo{border-radius:10px;overflow:hidden;height:220px;background:var(--gray-lt);position:relative}
-.why-photo img{width:100%;height:100%;object-fit:cover}
-.why-photo-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--muted)}
-.why-photo-placeholder svg{width:36px;height:36px;stroke:var(--gray-bd);fill:none;stroke-width:1.2}
-.why-photo-placeholder span{font-size:12px;letter-spacing:1px}
-.what-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.what-card{border-radius:9px;overflow:hidden;border:1px solid var(--gray-bd);transition:all .25s;cursor:pointer}
-.what-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.1)}
-.what-card-img{height:105px;background:var(--gray-lt);position:relative;overflow:hidden}
-.what-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
-.what-card:hover .what-card-img img{transform:scale(1.06)}
-.what-card-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:32px}
-.what-card-body{padding:12px 14px}
-.what-card-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px}
-.what-card-desc{font-size:11.5px;color:var(--mid);line-height:1.5}
+/* ── Why Choose Us 左右布局 ── */
+.why-section {
+  background: #fff;
+  padding: 80px 0;
+}
+.why-container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+.why-left {
+  flex: 1;
+}
+.why-right {
+  flex: 1;
+}
+.why-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-top: 32px;
+}
+.why-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.why-item-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--blue-bg);
+  border: 1px solid rgba(0,51,160,.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.why-item-icon svg {
+  width: 26px;
+  height: 26px;
+  stroke: var(--blue);
+  fill: none;
+  stroke-width: 1.8;
+}
+.why-item-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.why-item-desc {
+  font-size: 13.5px;
+  color: var(--mid);
+  line-height: 1.5;
+}
+.why-photo {
+  border-radius: 16px;
+  overflow: hidden;
+  height: auto;
+  min-height: 400px;
+  background: var(--gray-lt);
+}
+.why-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-/* ── Applications ── */
-.apps{background:var(--gray-lt)}
-.apps-row{display:flex;gap:12px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-.apps-row::-webkit-scrollbar{display:none}
-.app-tile{flex:0 0 155px;height:140px;border-radius:10px;overflow:hidden;position:relative;cursor:pointer}
-.app-tile img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
-.app-tile:hover img{transform:scale(1.08)}
-.app-tile-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.1) 55%,transparent 100%)}
-.app-tile-name{position:absolute;bottom:10px;left:10px;right:10px;font-size:12px;font-weight:700;color:#fff}
-.app-tile-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
-.app-tile-more{flex:0 0 155px;height:140px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--blue-lt));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;transition:opacity .2s}
-.app-tile-more:hover{opacity:.88}
-.app-tile-more-arrow{font-size:24px;color:rgba(255,255,255,.7)}
-.app-tile-more-label{font-size:12px;font-weight:700;color:#fff;text-align:center}
+/* ── What We Do 独立模块 ── */
+.what-section {
+  background: var(--gray-lt);
+  padding: 80px 0;
+}
+.what-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 16px;
+}
+.what-card {
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--gray-bd);
+  transition: all 0.25s;
+  cursor: pointer;
+}
+.what-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+}
+.what-card-img {
+  height: 180px;
+  overflow: hidden;
+}
+.what-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+.what-card:hover .what-card-img img {
+  transform: scale(1.05);
+}
+.what-card-body {
+  padding: 18px;
+}
+.what-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.what-card-desc {
+  font-size: 12.5px;
+  color: var(--mid);
+  line-height: 1.5;
+}
+
+/* ── Applications 横向滑动 ── */
+.apps {
+  background: var(--gray-lt);
+  padding: 60px 0;
+}
+.apps-row {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 8px;
+  -webkit-overflow-scrolling: touch;
+}
+.apps-row::-webkit-scrollbar {
+  display: none;
+}
+.app-tile {
+  flex: 0 0 160px;
+  height: 150px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  scroll-snap-align: start;
+  cursor: pointer;
+}
+.app-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.app-tile:hover img {
+  transform: scale(1.08);
+}
+.app-tile-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(0,0,0,.7) 0%, rgba(0,0,0,.2) 50%, transparent 100%);
+}
+.app-tile-name {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+}
+.app-tile-more {
+  flex: 0 0 160px;
+  height: 150px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--blue), var(--blue-lt));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  scroll-snap-align: start;
+}
+.app-tile-more:hover {
+  opacity: 0.9;
+}
+.app-tile-more-arrow {
+  font-size: 28px;
+  color: rgba(255,255,255,.8);
+}
+.app-tile-more-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+}
 
 /* ── Process ── */
-.process{background:#fff}
-.process-header{text-align:center;margin-bottom:52px}
-.process-header .section-sub{margin:0 auto}
-.process-flow{display:flex;align-items:flex-start;justify-content:center;gap:0;overflow-x:auto}
-.proc-step{display:flex;flex-direction:column;align-items:center;text-align:center;flex:1;min-width:110px;padding:0 8px}
-.proc-dot-num{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--blue);margin-bottom:8px}
-.proc-circle{width:80px;height:80px;border-radius:50%;overflow:hidden;border:3px solid var(--gray-bd);background:var(--gray-lt);margin:0 auto 14px;position:relative;flex-shrink:0;transition:border-color .2s}
-.proc-step:hover .proc-circle{border-color:var(--blue)}
-.proc-circle img{width:100%;height:100%;object-fit:cover}
-.proc-circle-icon{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:28px}
-.proc-circle.highlight{border-color:var(--blue);box-shadow:0 0 0 4px rgba(0,51,160,.12)}
-.proc-title{font-size:12.5px;font-weight:700;color:var(--text);margin-bottom:2px;line-height:1.3}
-.proc-note{font-size:11px;color:var(--blue);font-weight:600}
-.proc-arrow{padding-top:28px;color:var(--blue);flex-shrink:0;font-size:22px}
+.process {
+  background: #fff;
+  padding: 70px 0;
+}
+.process-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.process-flow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  overflow-x: auto;
+}
+.proc-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  min-width: 110px;
+  padding: 0 8px;
+}
+.proc-dot-num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--blue);
+  margin-bottom: 10px;
+}
+.proc-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--gray-bd);
+  background: var(--gray-lt);
+  margin: 0 auto 14px;
+}
+.proc-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.proc-circle.highlight {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(0,51,160,.12);
+}
+.proc-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+.proc-note {
+  font-size: 11px;
+  color: var(--blue);
+  font-weight: 600;
+}
+.proc-arrow {
+  padding-top: 28px;
+  color: var(--blue);
+  font-size: 22px;
+}
 
 /* ── Products ── */
-.products{background:var(--gray-lt)}
-.products-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;gap:16px}
-.products-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
-.prod-card{background:#fff;border:1px solid var(--gray-bd);border-radius:10px;overflow:hidden;cursor:pointer;transition:all .25s}
-.prod-card:hover{transform:translateY(-4px);box-shadow:0 10px 32px rgba(0,0,0,.1);border-color:rgba(0,51,160,.2)}
-.prod-img{height:118px;background:var(--gray-lt);position:relative;overflow:hidden}
-.prod-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
-.prod-card:hover .prod-img img{transform:scale(1.07)}
-.prod-img-icon{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px}
-.prod-body{padding:12px}
-.prod-name{font-size:12.5px;font-weight:700;color:var(--text);margin-bottom:3px}
-.prod-spec{font-size:11px;color:var(--muted)}
+.products {
+  background: var(--gray-lt);
+  padding: 60px 0;
+}
+.products-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+}
+.prod-card {
+  background: #fff;
+  border: 1px solid var(--gray-bd);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.25s;
+  cursor: pointer;
+}
+.prod-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(0,0,0,.1);
+}
+.prod-img {
+  height: 120px;
+  overflow: hidden;
+}
+.prod-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.prod-card:hover .prod-img img {
+  transform: scale(1.06);
+}
+.prod-body {
+  padding: 12px;
+}
+.prod-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.prod-spec {
+  font-size: 10.5px;
+  color: var(--muted);
+}
 
 /* ── Trust ── */
-.trust{background:#fff}
-.trust-grid{display:grid;grid-template-columns:1fr 1px 1fr;gap:0;align-items:center;padding:0 40px}
-.trust-div{background:var(--gray-bd);align-self:stretch;min-height:100px}
-.brands-col{padding-right:56px}
-.certs-col{padding-left:56px}
-.brand-logos{display:flex;align-items:center;gap:28px;flex-wrap:wrap;margin-top:24px}
-.brand-name{font-weight:900;opacity:.55;transition:opacity .2s;cursor:pointer;font-size:clamp(14px,1.5vw,20px)}
-.brand-name:hover{opacity:.9}
-.brand-name.oneill{color:#cc0000;font-style:italic;font-size:22px}
-.brand-name.mares{color:#0044cc;font-size:22px;font-style:italic}
-.brand-name.bodyglove{font-size:14px;letter-spacing:1.5px}
-.brand-name.seac{color:#e63b00;font-size:20px;font-style:italic}
-.cert-badges{display:flex;gap:14px;margin-top:24px;flex-wrap:wrap}
-.cert-badge{padding:14px 18px;border:2px solid var(--gray-bd);border-radius:9px;display:flex;flex-direction:column;align-items:center;gap:4px;transition:all .2s;cursor:pointer}
-.cert-badge:hover{border-color:var(--blue);box-shadow:0 4px 16px rgba(0,51,160,.1)}
-.cert-big{font-size:20px;font-weight:900;line-height:1}
-.cert-small{font-size:9.5px;color:var(--muted);text-align:center;line-height:1.4}
+.trust {
+  background: #fff;
+  padding: 70px 0;
+}
+.trust-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.brand-logos {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+.brand-name {
+  font-weight: 900;
+  opacity: 0.6;
+  font-size: 20px;
+}
+.brand-name.oneill {
+  color: #cc0000;
+  font-size: 24px;
+}
+.brand-name.mares {
+  color: #0044cc;
+  font-size: 24px;
+}
+.brand-name.seac {
+  color: #e63b00;
+  font-size: 22px;
+}
+.cert-badges {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+.cert-badge {
+  padding: 16px 22px;
+  border: 2px solid var(--gray-bd);
+  border-radius: 12px;
+  text-align: center;
+}
+.cert-big {
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1;
+}
+.cert-small {
+  font-size: 9.5px;
+  color: var(--muted);
+  margin-top: 6px;
+}
 
 /* ── CTA Banner ── */
-.cta-band{background:linear-gradient(135deg,var(--blue) 0%,var(--blue-lt) 100%);padding:60px 0;position:relative;overflow:hidden}
-.cta-band::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.06) 1px,transparent 0);background-size:28px 28px}
-.cta-band-inner{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap}
-.cta-band h2{font-size:clamp(22px,2.8vw,34px);font-weight:900;color:#fff;line-height:1.2;margin-bottom:8px}
-.cta-band p{font-size:15px;color:rgba(255,255,255,.72)}
-.cta-band-right{display:flex;flex-direction:column;gap:12px;align-items:flex-end;flex-shrink:0}
-.cta-band-btns{display:flex;gap:10px}
-.cta-contacts{display:flex;flex-direction:column;gap:7px;align-items:flex-end}
-.cta-contact-item{display:flex;align-items:center;gap:7px;font-size:13px;color:rgba(255,255,255,.85)}
-.cta-contact-item svg{width:14px;height:14px;stroke:rgba(255,255,255,.65);fill:none;stroke-width:2}
-.cta-contact-item a{color:#fff;font-weight:500}
+.cta-band {
+  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-lt) 100%);
+  padding: 55px 0;
+  position: relative;
+}
+.cta-band-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.cta-band h2 {
+  font-size: 28px;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.cta-band p {
+  font-size: 14px;
+  color: rgba(255,255,255,.75);
+}
+.cta-band-right {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-end;
+}
+.cta-band-btns {
+  display: flex;
+  gap: 12px;
+}
+.cta-contacts {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.cta-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: rgba(255,255,255,.8);
+}
+.cta-contact-item svg {
+  width: 14px;
+  height: 14px;
+  stroke: rgba(255,255,255,.6);
+  fill: none;
+}
+.cta-contact-item a {
+  color: #fff;
+}
+
+/* ── Footer ── */
+.site-footer {
+  background: #071628;
+  padding: 60px 0 30px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+.footer-logo .logo-info strong {
+  color: #fff;
+}
+.footer-logo .logo-info em {
+  color: rgba(255,255,255,.4);
+}
+.footer-about-text {
+  font-size: 13px;
+  color: rgba(255,255,255,.45);
+  line-height: 1.7;
+  margin: 16px 0 20px;
+  max-width: 280px;
+}
+.footer-socials {
+  display: flex;
+  gap: 10px;
+}
+.social-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,.5);
+  font-size: 12px;
+  font-weight: 700;
+  transition: all .2s;
+  cursor: pointer;
+}
+.social-btn:hover {
+  border-color: var(--yellow);
+  color: var(--yellow);
+}
+.footer-col-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+  margin-bottom: 18px;
+}
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.footer-links a {
+  font-size: 13px;
+  color: rgba(255,255,255,.45);
+  transition: color .2s;
+}
+.footer-links a:hover {
+  color: #fff;
+}
+.footer-contact-item {
+  display: flex;
+  gap: 10px;
+  font-size: 12.5px;
+  color: rgba(255,255,255,.45);
+  margin-bottom: 12px;
+}
+.footer-contact-item svg {
+  width: 14px;
+  height: 14px;
+  stroke: rgba(255,255,255,.4);
+  flex-shrink: 0;
+}
+.footer-contact-item a {
+  color: rgba(255,255,255,.7);
+}
+.footer-contact-item a:hover {
+  color: var(--yellow);
+}
+.footer-bar {
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-bar p {
+  font-size: 11px;
+  color: rgba(255,255,255,.25);
+}
+.footer-bar-links {
+  display: flex;
+  gap: 20px;
+}
+.footer-bar-links a {
+  font-size: 11px;
+  color: rgba(255,255,255,.3);
+}
+.footer-bar-links a:hover {
+  color: rgba(255,255,255,.7);
+}
+
+/* ── WhatsApp Float ── */
+.wa-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37,211,102,.4);
+  transition: all .2s;
+}
+.wa-float:hover {
+  transform: scale(1.1);
+}
+.wa-float svg {
+  width: 28px;
+  height: 28px;
+  fill: #fff;
+}
+
+/* ── Mobile Responsive ── */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 24px;
+  }
+  .why-container {
+    padding: 0 24px;
+    gap: 40px;
+  }
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .what-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .topbar-inner {
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 20px;
+  }
+  .topbar-left, .topbar-right {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+  .nav-inner {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 12px 20px;
+    gap: 12px;
+  }
+  .nav-menu {
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+    gap: 4px;
+  }
+  .nav-link {
+    white-space: nowrap;
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+  .nav-actions {
+    gap: 8px;
+  }
+  .nav-actions .btn {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+  .hero {
+    min-height: auto;
+    padding: 40px 0;
+  }
+  .hero-bg-photo {
+    width: 100%;
+    opacity: 0.25;
+  }
+  .hero-content {
+    padding: 30px 0;
+  }
+  .hero-h1 {
+    font-size: 32px;
+  }
+  .hero-feats {
+    gap: 8px;
+  }
+  .feat-chip {
+    padding: 5px 12px;
+  }
+  .hero-cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero-cta .btn {
+    text-align: center;
+    justify-content: center;
+  }
+  .hero-badge {
+    display: none;
+  }
+  .stats-inner {
+    flex-direction: column;
+    padding: 0;
+  }
+  .stat-col {
+    border-right: none;
+    border-bottom: 1px solid var(--gray-bd);
+  }
+  .cert-cols {
+    border-left: none;
+    justify-content: center;
+  }
+  
+  /* Why 部分手机改上下布局 */
+  .why-container {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .why-left {
+    order: 1;
+  }
+  .why-right {
+    order: 2;
+  }
+  .why-photo {
+    min-height: 280px;
+  }
+  
+  .what-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .trust-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    text-align: center;
+  }
+  .footer-about-text {
+    max-width: 100%;
+    text-align: center;
+  }
+  .footer-socials {
+    justify-content: center;
+  }
+  .footer-contact-item {
+    justify-content: center;
+  }
+  .cta-band-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+  .cta-band-right {
+    align-items: center;
+    width: 100%;
+  }
+  .cta-band-btns {
+    flex-direction: column;
+    width: 100%;
+  }
+  .cta-band-btns .btn {
+    width: 100%;
+    text-align: center;
+  }
+  .cta-contacts {
+    justify-content: center;
+  }
+  .footer-bar {
+    flex-direction: column;
+    text-align: center;
+  }
+  .process-flow {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .proc-step {
+    flex-direction: row;
+    text-align: left;
+    gap: 16px;
+    min-width: auto;
+  }
+  .proc-circle {
+    margin: 0;
+  }
+  .proc-arrow {
+    display: none;
+  }
+  .section {
+    padding: 50px 0;
+  }
+  .why-section, .what-section {
+    padding: 50px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+  .app-tile, .app-tile-more {
+    flex: 0 0 130px;
+    height: 130px;
+  }
+  .why-grid {
+    gap: 20px;
+  }
+  .why-item-icon {
+    width: 44px;
+    height: 44px;
+  }
+  .why-item-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+}
 </style>
 </head>
 <body>
@@ -217,19 +1378,18 @@
   <div class="hero-grid"></div>
   <div class="hero-content" style="width:100%">
     <div class="container">
-      <div class="hero-eyebrow anim">
-        <span class="hero-eyebrow-icon">⚡</span>
-        <span class="hero-eyebrow-text">Your Trusted Partner</span>
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-text">⚡ Your Trusted Partner</span>
       </div>
-      <h1 class="hero-h1 anim anim-delay-1">Neoprene &<br><span>Lamination</span><br>Experts</h1>
-      <p class="hero-desc anim anim-delay-2">Professional <strong>neoprene & laminated fabric manufacturer</strong> in Dongguan, China. CR, SBR, SCR neoprene laminated with polyester, spandex, nylon — for wetsuits, sports gear, bottle sleeves & more.</p>
-      <div class="hero-feats anim anim-delay-3">
-        <div class="feat-chip"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="2" y1="15" x2="22" y2="15"/></svg><div class="feat-chip-label"><span class="feat-chip-name">Custom Lamination</span><span class="feat-chip-sub">Any fabric combination</span></div></div>
-        <div class="feat-chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div class="feat-chip-label"><span class="feat-chip-name">Fast 3–7 Day Sample</span><span class="feat-chip-sub">Express production</span></div></div>
-        <div class="feat-chip"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><div class="feat-chip-label"><span class="feat-chip-name">Low MOQ</span><span class="feat-chip-sub">Supports small orders</span></div></div>
-        <div class="feat-chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg><div class="feat-chip-label"><span class="feat-chip-name">Global Shipping</span><span class="feat-chip-sub">30+ countries served</span></div></div>
+      <h1 class="hero-h1">Neoprene &<br><span>Lamination</span><br>Experts</h1>
+      <p class="hero-desc">Professional <strong>neoprene & laminated fabric manufacturer</strong> in Dongguan, China. CR, SBR, SCR neoprene laminated with polyester, spandex, nylon — for wetsuits, sports gear, bottle sleeves & more.</p>
+      <div class="hero-feats">
+        <div class="feat-chip"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="2" y1="15" x2="22" y2="15"/></svg><div><div class="feat-chip-name">Custom Lamination</div><div class="feat-chip-sub">Any fabric combination</div></div></div>
+        <div class="feat-chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div><div class="feat-chip-name">Fast 3–7 Day Sample</div><div class="feat-chip-sub">Express production</div></div></div>
+        <div class="feat-chip"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><div><div class="feat-chip-name">Low MOQ</div><div class="feat-chip-sub">Supports small orders</div></div></div>
+        <div class="feat-chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg><div><div class="feat-chip-name">Global Shipping</div><div class="feat-chip-sub">30+ countries served</div></div></div>
       </div>
-      <div class="hero-cta anim anim-delay-4">
+      <div class="hero-cta">
         <a href="contact.html?inquiry=quote" class="btn btn-blue btn-lg">Get a Quote Now →</a>
         <a href="contact.html?inquiry=sample" class="btn btn-ghost btn-lg">Request Free Sample</a>
       </div>
@@ -244,74 +1404,90 @@
 <!-- STATS BAR -->
 <div class="stats-bar">
   <div class="stats-inner">
-    <div class="stat-col anim"><div class="stat-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg></div><div><div class="stat-num"><span data-target="10" data-suffix="+">10+</span></div><div class="stat-lbl">Years Experience<br>in Neoprene</div></div></div>
-    <div class="stat-col anim anim-delay-1"><div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div><div class="stat-num"><span data-target="8000" data-suffix="+ m²">8,000+ m²</span></div><div class="stat-lbl">Factory Area</div></div></div>
-    <div class="stat-col anim anim-delay-2"><div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div><div><div class="stat-num"><span data-target="100" data-suffix="+">100+</span></div><div class="stat-lbl">Skilled Workers</div></div></div>
-    <div class="stat-col anim anim-delay-3"><div class="stat-icon"><svg viewBox="0 0 24 24"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg></div><div><div class="stat-num"><span data-target="10000" data-suffix=" Rolls">10,000 Rolls</span></div><div class="stat-lbl">Monthly Capacity</div></div></div>
+    <div class="stat-col"><div class="stat-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg></div><div><div class="stat-num">10+</div><div class="stat-lbl">Years Experience</div></div></div>
+    <div class="stat-col"><div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div><div class="stat-num">8,000+ m²</div><div class="stat-lbl">Factory Area</div></div></div>
+    <div class="stat-col"><div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div><div><div class="stat-num">100+</div><div class="stat-lbl">Skilled Workers</div></div></div>
+    <div class="stat-col"><div class="stat-icon"><svg viewBox="0 0 24 24"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg></div><div><div class="stat-num">10,000+ Rolls</div><div class="stat-lbl">Monthly Capacity</div></div></div>
     <div class="cert-cols">
-      <div class="cert-col anim anim-delay-4"><div class="cert-logo-iso">ISO</div><div class="cert-sub">9001:2015</div></div>
-      <div class="cert-col anim anim-delay-5"><div class="cert-logo-oeko">OEKO-TEX®<br>STANDARD<br>100</div></div>
-      <div class="cert-col anim anim-delay-5"><div class="cert-logo-sgs">SGS</div><div class="cert-sub">Verified</div></div>
+      <div class="cert-col"><div class="cert-logo-iso">ISO</div><div class="cert-sub">9001:2015</div></div>
+      <div class="cert-col"><div class="cert-logo-oeko">OEKO-TEX®<br>STANDARD 100</div></div>
+      <div class="cert-col"><div class="cert-logo-sgs">SGS</div><div class="cert-sub">Verified</div></div>
     </div>
   </div>
 </div>
 
-<!-- WHY + WHAT -->
-<div class="why-what">
-  <div class="why-what-grid">
-    <div class="why-col">
-      <div class="section-tag anim">Why Choose Us</div>
-      <h2 class="section-title anim anim-delay-1">Quality You Can<br>Trust. Every Batch.</h2>
-      <p class="section-sub anim anim-delay-2" style="margin-bottom:28px">We focus on quality, reliability and long-term partnerships with buyers worldwide.</p>
-      <div class="why-items">
-        <div class="why-item anim anim-delay-1"><div class="why-item-icon"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div><div><div class="why-item-title">100% Inspection Before Shipment</div><div class="why-item-desc">Every roll inspected for thickness, bond strength, and visual defects</div></div></div>
-        <div class="why-item anim anim-delay-2"><div class="why-item-icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div><div><div class="why-item-title">Advanced Production Equipment</div><div class="why-item-desc">Latest lamination lines ensure consistent quality at scale</div></div></div>
-        <div class="why-item anim anim-delay-3"><div class="why-item-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div><div><div class="why-item-title">Experienced Technical Team</div><div class="why-item-desc">10+ years in neoprene. We speak your material language</div></div></div>
-        <div class="why-item anim anim-delay-4"><div class="why-item-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div><div class="why-item-title">Reliable On-Time Delivery</div><div class="why-item-desc">Strict production scheduling. Sample in 3–7 days, bulk in 15–25 days</div></div></div>
+<!-- WHY CHOOSE US - 左边文字，右边图片 -->
+<div class="why-section">
+  <div class="why-container">
+    <div class="why-left">
+      <div class="section-tag">Why Choose Us</div>
+      <h2 class="section-title">Quality You Can Trust. Every Batch.</h2>
+      <p class="section-sub">We focus on quality, reliability and long-term partnerships with buyers worldwide.</p>
+      <div class="why-grid">
+        <div class="why-item">
+          <div class="why-item-icon"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+          <div><div class="why-item-title">100% Inspection Before Shipment</div><div class="why-item-desc">Every roll inspected for thickness, bond strength, and visual defects</div></div>
+        </div>
+        <div class="why-item">
+          <div class="why-item-icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div>
+          <div><div class="why-item-title">Advanced Production Equipment</div><div class="why-item-desc">Latest lamination lines ensure consistent quality at scale</div></div>
+        </div>
+        <div class="why-item">
+          <div class="why-item-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <div><div class="why-item-title">Experienced Technical Team</div><div class="why-item-desc">10+ years in neoprene. We speak your material language</div></div>
+        </div>
+        <div class="why-item">
+          <div class="why-item-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+          <div><div class="why-item-title">Reliable On-Time Delivery</div><div class="why-item-desc">Strict production scheduling. Sample in 3–7 days, bulk in 15–25 days</div></div>
+        </div>
       </div>
-      <div class="why-photo anim">
+    </div>
+    <div class="why-right">
+      <div class="why-photo">
         <img src="images/factory-overview.jpg" alt="Siyin Factory Production Line" loading="lazy">
-        <div class="why-photo-placeholder" style="display:none"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>FACTORY PHOTO</span></div>
-      </div>
-    </div>
-    <div class="divider-col"></div>
-    <div class="what-col">
-      <div class="section-tag anim">What We Do</div>
-      <h2 class="section-title anim anim-delay-1">One-Stop Neoprene<br>Solutions</h2>
-      <p class="section-sub anim anim-delay-2" style="margin-bottom:24px">From material development and sampling to mass production — all under one roof.</p>
-      <div class="what-grid">
-        <div class="what-card anim anim-delay-1">
-          <div class="what-card-img"><img src="images/lamination.jpg" alt="Custom Neoprene Lamination" loading="lazy"><div class="what-card-img-placeholder" style="display:none">🏭</div></div>
-          <div class="what-card-body"><div class="what-card-title">Custom Neoprene Lamination</div><div class="what-card-desc">Thickness, structure, fabric combinations to spec</div></div>
-        </div>
-        <div class="what-card anim anim-delay-2">
-          <div class="what-card-img"><img src="images/oem-fabric.jpg" alt="OEM ODM Development" loading="lazy"><div class="what-card-img-placeholder" style="display:none">🎨</div></div>
-          <div class="what-card-body"><div class="what-card-title">OEM / ODM Development</div><div class="what-card-desc">Custom designs for brands &amp; private label</div></div>
-        </div>
-        <div class="what-card anim anim-delay-3">
-          <div class="what-card-img"><img src="images/sampling.jpg" alt="Sample Development" loading="lazy"><div class="what-card-img-placeholder" style="display:none">⚡</div></div>
-          <div class="what-card-body"><div class="what-card-title">Sample Development</div><div class="what-card-desc">Fast 3–7 day turnaround on samples</div></div>
-        </div>
-        <div class="what-card anim anim-delay-4">
-          <div class="what-card-img"><img src="images/mass-production.jpg" alt="Mass Production" loading="lazy"><div class="what-card-img-placeholder" style="display:none">📦</div></div>
-          <div class="what-card-body"><div class="what-card-title">Mass Production</div><div class="what-card-desc">10,000+ rolls/month, stable supply chain</div></div>
-        </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- APPLICATIONS -->
-<section class="apps section-sm">
+<!-- WHAT WE DO -->
+<div class="what-section">
   <div class="container">
-    <div class="section-tag anim">Applications</div>
-    <h2 class="section-title anim anim-delay-1" style="margin-bottom:28px">One Material, Endless Uses</h2>
+    <div class="section-tag">What We Do</div>
+    <h2 class="section-title">One-Stop Neoprene Solutions</h2>
+    <p class="section-sub">From material development and sampling to mass production — all under one roof.</p>
+    <div class="what-grid">
+      <div class="what-card">
+        <div class="what-card-img"><img src="images/lamination.jpg" alt="Custom Neoprene Lamination" loading="lazy"></div>
+        <div class="what-card-body"><div class="what-card-title">Custom Neoprene Lamination</div><div class="what-card-desc">Thickness, structure, fabric combinations to spec</div></div>
+      </div>
+      <div class="what-card">
+        <div class="what-card-img"><img src="images/oem-fabric.jpg" alt="OEM ODM Development" loading="lazy"></div>
+        <div class="what-card-body"><div class="what-card-title">OEM / ODM Development</div><div class="what-card-desc">Custom designs for brands & private label</div></div>
+      </div>
+      <div class="what-card">
+        <div class="what-card-img"><img src="images/sampling.jpg" alt="Sample Development" loading="lazy"></div>
+        <div class="what-card-body"><div class="what-card-title">Sample Development</div><div class="what-card-desc">Fast 3–7 day turnaround on samples</div></div>
+      </div>
+      <div class="what-card">
+        <div class="what-card-img"><img src="images/mass-production.jpg" alt="Mass Production" loading="lazy"></div>
+        <div class="what-card-body"><div class="what-card-title">Mass Production</div><div class="what-card-desc">10,000+ rolls/month, stable supply chain</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- APPLICATIONS - 横向滑动 -->
+<section class="apps">
+  <div class="container">
+    <div class="section-tag">Applications</div>
+    <h2 class="section-title">One Material, Endless Uses</h2>
     <div class="apps-row">
-      <div class="app-tile anim anim-delay-1"><img src="images/app-wetsuit.jpg" alt="Wetsuits" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Wetsuits</div></div>
-      <div class="app-tile anim anim-delay-2"><img src="images/app-sports.jpg" alt="Sports Gear" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Sports Gear</div></div>
-      <div class="app-tile anim anim-delay-3"><img src="images/app-bottle.jpg" alt="Bottle Sleeves" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Bottle Sleeves</div></div>
-      <div class="app-tile anim anim-delay-4"><img src="images/app-bags.jpg" alt="Bags & Luggage" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Bags &amp; Luggage</div></div>
-      <div class="app-tile anim anim-delay-5"><img src="images/app-fitness.jpg" alt="Fitness & Support" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Fitness &amp; Support</div></div>
+      <div class="app-tile"><img src="images/app-wetsuit.jpg" alt="Wetsuits" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Wetsuits</div></div>
+      <div class="app-tile"><img src="images/app-sports.jpg" alt="Sports Gear" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Sports Gear</div></div>
+      <div class="app-tile"><img src="images/app-bottle.jpg" alt="Bottle Sleeves" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Bottle Sleeves</div></div>
+      <div class="app-tile"><img src="images/app-bags.jpg" alt="Bags & Luggage" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Bags & Luggage</div></div>
+      <div class="app-tile"><img src="images/app-fitness.jpg" alt="Fitness & Support" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Fitness & Support</div></div>
       <div class="app-tile"><img src="images/app-shoes.jpg" alt="Footwear" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Footwear</div></div>
       <div class="app-tile"><img src="images/app-pet.jpg" alt="Pet Life Jackets" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Pet Life Jackets</div></div>
       <a href="applications.html" class="app-tile-more"><div class="app-tile-more-arrow">→</div><div class="app-tile-more-label">More<br>Applications</div></a>
@@ -320,53 +1496,53 @@
 </section>
 
 <!-- PROCESS -->
-<section class="process section">
+<section class="process">
   <div class="container">
     <div class="process-header">
-      <div class="section-tag" style="justify-content:center;margin-bottom:8px">How We Work</div>
-      <h2 class="section-title blue" style="text-align:center;text-transform:uppercase">From Design to Mass Production</h2>
-      <p class="section-sub" style="margin:8px auto 0;text-align:center">One-Stop Service — 7 seamless steps from your idea to your door</p>
+      <div class="section-tag" style="margin:0 auto 8px; display:inline-block;">How We Work</div>
+      <h2 class="section-title" style="text-align:center;">From Design to Mass Production</h2>
+      <p class="section-sub" style="margin:0 auto;text-align:center;">One-Stop Service — 7 seamless steps from your idea to your door</p>
     </div>
     <div class="process-flow">
-      <div class="proc-step anim"><div class="proc-dot-num">01</div><div class="proc-circle"><img src="images/proc-discuss.jpg" alt="Requirement Discussion" loading="lazy"><div class="proc-circle-icon" style="display:none">💬</div></div><div class="proc-title">Requirement<br>Discussion</div></div>
+      <div class="proc-step"><div class="proc-dot-num">01</div><div class="proc-circle"><img src="images/proc-discuss.jpg" alt="Requirement Discussion" loading="lazy"></div><div class="proc-title">Requirement<br>Discussion</div></div>
       <div class="proc-arrow">›</div>
-      <div class="proc-step anim anim-delay-1"><div class="proc-dot-num">02</div><div class="proc-circle"><img src="images/proc-material.jpg" alt="Material Selection" loading="lazy"><div class="proc-circle-icon" style="display:none">🧱</div></div><div class="proc-title">Material<br>Selection</div></div>
+      <div class="proc-step"><div class="proc-dot-num">02</div><div class="proc-circle"><img src="images/proc-material.jpg" alt="Material Selection" loading="lazy"></div><div class="proc-title">Material<br>Selection</div></div>
       <div class="proc-arrow">›</div>
-      <div class="proc-step anim anim-delay-2"><div class="proc-dot-num">03</div><div class="proc-circle highlight"><img src="images/proc-sample.jpg" alt="Sample Development" loading="lazy"><div class="proc-circle-icon" style="display:none">🔬</div></div><div class="proc-title">Sample Dev</div><div class="proc-note">3–7 Days</div></div>
+      <div class="proc-step"><div class="proc-dot-num">03</div><div class="proc-circle highlight"><img src="images/proc-sample.jpg" alt="Sample Development" loading="lazy"></div><div class="proc-title">Sample Dev</div><div class="proc-note">3–7 Days</div></div>
       <div class="proc-arrow">›</div>
-      <div class="proc-step anim anim-delay-3"><div class="proc-dot-num">04</div><div class="proc-circle"><img src="images/proc-confirm.jpg" alt="Sample Confirmation" loading="lazy"><div class="proc-circle-icon" style="display:none">✅</div></div><div class="proc-title">Sample<br>Confirmation</div></div>
+      <div class="proc-step"><div class="proc-dot-num">04</div><div class="proc-circle"><img src="images/proc-confirm.jpg" alt="Sample Confirmation" loading="lazy"></div><div class="proc-title">Sample<br>Confirmation</div></div>
       <div class="proc-arrow">›</div>
-      <div class="proc-step anim anim-delay-4"><div class="proc-dot-num">05</div><div class="proc-circle"><img src="images/proc-production.jpg" alt="Mass Production" loading="lazy"><div class="proc-circle-icon" style="display:none">🏭</div></div><div class="proc-title">Mass<br>Production</div></div>
+      <div class="proc-step"><div class="proc-dot-num">05</div><div class="proc-circle"><img src="images/proc-production.jpg" alt="Mass Production" loading="lazy"></div><div class="proc-title">Mass<br>Production</div></div>
       <div class="proc-arrow">›</div>
-      <div class="proc-step anim anim-delay-5"><div class="proc-dot-num">06</div><div class="proc-circle"><img src="images/proc-qc.jpg" alt="Quality Inspection" loading="lazy"><div class="proc-circle-icon" style="display:none">🔍</div></div><div class="proc-title">Quality<br>Inspection</div></div>
+      <div class="proc-step"><div class="proc-dot-num">06</div><div class="proc-circle"><img src="images/proc-qc.jpg" alt="Quality Inspection" loading="lazy"></div><div class="proc-title">Quality<br>Inspection</div></div>
       <div class="proc-arrow">›</div>
-      <div class="proc-step anim anim-delay-5"><div class="proc-dot-num">07</div><div class="proc-circle"><img src="images/proc-ship.jpg" alt="Packing & Shipment" loading="lazy"><div class="proc-circle-icon" style="display:none">🚢</div></div><div class="proc-title">Packing &amp;<br>Shipment</div></div>
+      <div class="proc-step"><div class="proc-dot-num">07</div><div class="proc-circle"><img src="images/proc-ship.jpg" alt="Packing & Shipment" loading="lazy"></div><div class="proc-title">Packing &amp;<br>Shipment</div></div>
     </div>
   </div>
 </section>
 
 <!-- FEATURED PRODUCTS -->
-<section class="products section-sm">
+<section class="products">
   <div class="container">
     <div class="products-header">
-      <div><div class="section-tag anim">Featured Products</div><h2 class="section-title anim anim-delay-1">Our Product Range</h2></div>
-      <a href="products.html" class="btn btn-outline anim">View All Products →</a>
+      <div><div class="section-tag">Featured Products</div><h2 class="section-title">Our Product Range</h2></div>
+      <a href="products.html" class="btn btn-outline">View All Products →</a>
     </div>
     <div class="products-grid">
-      <a href="products.html#neoprene-sheet" class="prod-card anim"><div class="prod-img"><img src="images/prod-sheet.jpg" alt="Neoprene Sheet" loading="lazy"><div class="prod-img-icon" style="display:none">🖤</div></div><div class="prod-body"><div class="prod-name">Neoprene Sheet</div><div class="prod-spec">SBR / SCR / CR / NBR</div></div></a>
-      <a href="products.html#laminated" class="prod-card anim anim-delay-1"><div class="prod-img"><img src="images/prod-laminated.jpg" alt="Laminated Fabric" loading="lazy"><div class="prod-img-icon" style="display:none">🎨</div></div><div class="prod-body"><div class="prod-name">Laminated Fabric</div><div class="prod-spec">Multi-fabric bonding</div></div></a>
-      <a href="products.html#printed" class="prod-card anim anim-delay-2"><div class="prod-img"><img src="images/prod-printed.jpg" alt="Printed Neoprene" loading="lazy"><div class="prod-img-icon" style="display:none">🖨️</div></div><div class="prod-body"><div class="prod-name">Printed Neoprene</div><div class="prod-spec">Custom full-color print</div></div></a>
-      <a href="products.html#embossed" class="prod-card anim anim-delay-3"><div class="prod-img"><img src="images/prod-embossed.jpg" alt="Embossed Neoprene" loading="lazy"><div class="prod-img-icon" style="display:none">🌊</div></div><div class="prod-body"><div class="prod-name">Embossed Neoprene</div><div class="prod-spec">Various textures</div></div></a>
-      <a href="products.html#jersey" class="prod-card anim anim-delay-4"><div class="prod-img"><img src="images/prod-jersey.jpg" alt="Jersey Fabric" loading="lazy"><div class="prod-img-icon" style="display:none">🧶</div></div><div class="prod-body"><div class="prod-name">Jersey Fabric</div><div class="prod-spec">Polyester / Nylon / Spandex</div></div></a>
-      <a href="products.html#perforated" class="prod-card anim anim-delay-5"><div class="prod-img"><img src="images/prod-perforated.jpg" alt="Perforated Neoprene" loading="lazy"><div class="prod-img-icon" style="display:none">⚡</div></div><div class="prod-body"><div class="prod-name">Perforated Neoprene</div><div class="prod-spec">Breathable &amp; lightweight</div></div></a>
+      <a href="products.html#neoprene-sheet" class="prod-card"><div class="prod-img"><img src="images/prod-sheet.jpg" alt="Neoprene Sheet" loading="lazy"></div><div class="prod-body"><div class="prod-name">Neoprene Sheet</div><div class="prod-spec">SBR / SCR / CR / NBR</div></div></a>
+      <a href="products.html#laminated" class="prod-card"><div class="prod-img"><img src="images/prod-laminated.jpg" alt="Laminated Fabric" loading="lazy"></div><div class="prod-body"><div class="prod-name">Laminated Fabric</div><div class="prod-spec">Multi-fabric bonding</div></div></a>
+      <a href="products.html#printed" class="prod-card"><div class="prod-img"><img src="images/prod-printed.jpg" alt="Printed Neoprene" loading="lazy"></div><div class="prod-body"><div class="prod-name">Printed Neoprene</div><div class="prod-spec">Custom full-color print</div></div></a>
+      <a href="products.html#embossed" class="prod-card"><div class="prod-img"><img src="images/prod-embossed.jpg" alt="Embossed Neoprene" loading="lazy"></div><div class="prod-body"><div class="prod-name">Embossed Neoprene</div><div class="prod-spec">Various textures</div></div></a>
+      <a href="products.html#jersey" class="prod-card"><div class="prod-img"><img src="images/prod-jersey.jpg" alt="Jersey Fabric" loading="lazy"></div><div class="prod-body"><div class="prod-name">Jersey Fabric</div><div class="prod-spec">Polyester / Nylon / Spandex</div></div></a>
+      <a href="products.html#perforated" class="prod-card"><div class="prod-img"><img src="images/prod-perforated.jpg" alt="Perforated Neoprene" loading="lazy"></div><div class="prod-body"><div class="prod-name">Perforated Neoprene</div><div class="prod-spec">Breathable & lightweight</div></div></a>
     </div>
   </div>
 </section>
 
 <!-- TRUSTED BY + CERTS -->
-<section class="trust section">
+<section class="trust">
   <div class="container trust-grid">
-    <div class="brands-col anim">
+    <div>
       <div class="section-tag">Trusted By</div>
       <h2 class="section-title">Global Brands Choose Siyin</h2>
       <p class="section-sub">Building long-term material partnerships with leading brands worldwide.</p>
@@ -377,22 +1553,21 @@
         <div class="brand-name seac">SEAC</div>
       </div>
     </div>
-    <div class="trust-div"></div>
-    <div class="certs-col anim anim-delay-2">
+    <div>
       <div class="section-tag">Certifications</div>
       <h2 class="section-title">Internationally Certified</h2>
       <p class="section-sub">Our materials meet EU, US, and international safety and quality standards.</p>
       <div class="cert-badges">
-        <div class="cert-badge"><div class="cert-big" style="color:#0055A4">ISO</div><div class="cert-small">9001:2015<br>Quality Mgmt</div></div>
-        <div class="cert-badge"><div class="cert-big" style="color:#3a7d44;font-size:12px;line-height:1.3">OEKO-TEX®<br>STANDARD 100</div><div class="cert-small">Harmful substance<br>tested</div></div>
-        <div class="cert-badge"><div class="cert-big" style="color:#CC0000">SGS</div><div class="cert-small">Quality<br>Verified</div></div>
-        <div class="cert-badge"><div class="cert-big" style="font-size:14px;color:#333">REACH</div><div class="cert-small">EU Compliant<br>Materials</div></div>
+        <div class="cert-badge"><div class="cert-big" style="color:#0055A4">ISO</div><div class="cert-small">9001:2015</div></div>
+        <div class="cert-badge"><div class="cert-big" style="color:#3a7d44;font-size:12px;">OEKO-TEX®<br>100</div><div class="cert-small">Harmful substance tested</div></div>
+        <div class="cert-badge"><div class="cert-big" style="color:#CC0000">SGS</div><div class="cert-small">Quality Verified</div></div>
+        <div class="cert-badge"><div class="cert-big" style="font-size:14px;">REACH</div><div class="cert-small">EU Compliant</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CTA BAND -->
+<!-- CTA BANNER -->
 <section class="cta-band">
   <div class="container cta-band-inner">
     <div>
@@ -407,7 +1582,7 @@
       <div class="cta-contacts">
         <div class="cta-contact-item"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.7 10.5a19.79 19.79 0 01-3-8.59A2 2 0 012.68 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.69a16 16 0 006.4 6.4l1.06-1.06a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg><a href="tel:+8607698281508">+86 0769-8281-5056</a></div>
         <div class="cta-contact-item"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:sales@slyinsports.com">sales@slyinsports.com</a></div>
-        <div class="cta-contact-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Dongguan, Guangdong, China</div>
+        <div class="cta-contact-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Dongguan, China</div>
       </div>
     </div>
   </div>
@@ -420,45 +1595,13 @@
       <div>
         <div class="footer-logo logo"><div class="logo-mark"><span>SY</span></div><div class="logo-info"><strong>Dongguan Siyin</strong><em>Sports Goods Co., Ltd.</em></div></div>
         <p class="footer-about-text">Professional neoprene & laminated fabric manufacturer. 10+ years supplying premium materials to global sports, marine, and industrial brands.</p>
-        <div class="footer-socials">
-          <div class="social-btn" title="LinkedIn">in</div>
-          <div class="social-btn" title="1688">88</div>
-          <div class="social-btn" title="WhatsApp">W</div>
-        </div>
+        <div class="footer-socials"><div class="social-btn">in</div><div class="social-btn">88</div><div class="social-btn">W</div></div>
       </div>
-      <div>
-        <div class="footer-col-title">Products</div>
-        <ul class="footer-links">
-          <li><a href="products.html#neoprene-sheet">Neoprene Sheet</a></li>
-          <li><a href="products.html#laminated">Laminated Fabric</a></li>
-          <li><a href="products.html#printed">Printed Neoprene</a></li>
-          <li><a href="products.html#embossed">Embossed Neoprene</a></li>
-          <li><a href="products.html#perforated">Perforated Neoprene</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-col-title">Company</div>
-        <ul class="footer-links">
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="about.html#factory">Factory Tour</a></li>
-          <li><a href="about.html#capabilities">Capabilities</a></li>
-          <li><a href="about.html#certifications">Certifications</a></li>
-          <li><a href="applications.html">Applications</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-col-title">Contact Us</div>
-        <div class="footer-contact-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Dongguan City, Guangdong Province, China 523000</span></div>
-        <div class="footer-contact-item"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.7 10.5a19.79 19.79 0 01-3-8.59A2 2 0 012.68 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.69a16 16 0 006.4 6.4l1.06-1.06a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg><a href="tel:+8607698281508">+86 0769-8281-5056</a></div>
-        <div class="footer-contact-item"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:sales@slyinsports.com">sales@slyinsports.com</a></div>
-        <div class="footer-contact-item"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span>WhatsApp: <a href="https://wa.me/8613900000000">+86 139 0000 0000</a></span></div>
-      </div>
+      <div><div class="footer-col-title">Products</div><ul class="footer-links"><li><a href="products.html#neoprene-sheet">Neoprene Sheet</a></li><li><a href="products.html#laminated">Laminated Fabric</a></li><li><a href="products.html#printed">Printed Neoprene</a></li><li><a href="products.html#embossed">Embossed Neoprene</a></li><li><a href="products.html#perforated">Perforated Neoprene</a></li></ul></div>
+      <div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a href="about.html">About Us</a></li><li><a href="about.html#factory">Factory Tour</a></li><li><a href="about.html#capabilities">Capabilities</a></li><li><a href="applications.html">Applications</a></li><li><a href="contact.html">Contact Us</a></li></ul></div>
+      <div><div class="footer-col-title">Contact Us</div><div class="footer-contact-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Dongguan City, China 523000</span></div><div class="footer-contact-item"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.7 10.5a19.79 19.79 0 01-3-8.59A2 2 0 012.68 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.69a16 16 0 006.4 6.4l1.06-1.06a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg><a href="tel:+8607698281508">+86 0769-8281-5056</a></div><div class="footer-contact-item"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:sales@slyinsports.com">sales@slyinsports.com</a></div></div>
     </div>
-    <div class="footer-bar">
-      <p>© 2025 Dongguan Siyin Sports Goods Co., Ltd. All Rights Reserved.</p>
-      <div class="footer-bar-links"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">Sitemap</a></div>
-    </div>
+    <div class="footer-bar"><p>© 2025 Dongguan Siyin Sports Goods Co., Ltd. All Rights Reserved.</p><div class="footer-bar-links"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">Sitemap</a></div></div>
   </div>
 </footer>
 
