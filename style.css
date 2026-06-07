@@ -213,3 +213,23 @@ tbody tr:hover { background: var(--gray-lt); }
     max-width: 14px !important;
     min-width: 14px !important;
 }
+/* ===== 强制缩小所有图标 - 最终方案 ===== */
+.topbar-item svg,
+.footer-contact-item svg,
+.cta-contact-item svg,
+.hero-badge-play svg,
+.feat-chip svg,
+.what-card-img-placeholder svg,
+.stat-icon svg,
+.why-item-icon svg,
+.prod-img-icon svg,
+.social-btn svg {
+    width: 14px !important;
+    height: 14px !important;
+}
+
+/* WhatsApp 浮动按钮保持大小 */
+.wa-float svg {
+    width: 24px !important;
+    height: 24px !important;
+}
