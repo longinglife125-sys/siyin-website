@@ -71,13 +71,13 @@ h1,h2,h3,h4 { line-height: 1.2; }
 .btn-icon { padding: 10px; }
 
 /* ── Topbar ── */
-.topbar { background: #0A2A6E; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,.08); }
+.topbar { background: #FFFFFF; padding: 7px 0; border-bottom: 1px solid var(--gray-bd); }
 .topbar-inner { max-width: var(--max); margin: 0 auto; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
 .topbar-left,.topbar-right { display: flex; align-items: center; gap: 20px; }
-.tb-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: rgba(255,255,255,.7); }
-.tb-item a { color: rgba(255,255,255,.88); transition: color .2s; }
-.tb-item a:hover { color: #fff; }
-.tb-item svg { width: 12px; height: 12px; stroke: rgba(255,255,255,.55); fill: none; stroke-width: 2; flex-shrink: 0; }
+.tb-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--mid); }
+.tb-item a { color: var(--mid); transition: color .2s; }
+.tb-item a:hover { color: var(--blue); }
+.tb-item svg { width: 12px; height: 12px; stroke: var(--mid); fill: none; stroke-width: 2; flex-shrink: 0; }
 
 /* ── Nav ── */
 .nav { background: #fff; box-shadow: var(--shadow); position: sticky; top: 0; z-index: 500; transition: box-shadow .3s; }
@@ -173,9 +173,9 @@ tbody tr:hover { background: var(--gray-lt); }
 .footer-bar-links a:hover { color: rgba(255,255,255,.72); }
 
 /* ── WhatsApp Float ── */
-.wa-btn { position: fixed; bottom: 28px; right: 28px; z-index: 999; width: 52px; height: 52px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,.45); cursor: pointer; transition: all .2s; animation: waPulse 3s ease-in-out infinite; text-decoration: none; }
-.wa-btn:hover { transform: scale(1.1); }
-.wa-btn svg { width: 26px; height: 26px; fill: #fff; }
+.wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 999; width: 52px; height: 52px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,.45); cursor: pointer; transition: all .2s; animation: waPulse 3s ease-in-out infinite; text-decoration: none; }
+.wa-float:hover { transform: scale(1.1); }
+.wa-float svg { width: 28px; height: 28px; fill: #fff; }
 @keyframes waPulse { 0%,100%{box-shadow:0 4px 20px rgba(37,211,102,.45)} 50%{box-shadow:0 4px 32px rgba(37,211,102,.7),0 0 0 8px rgba(37,211,102,.12)} }
 
 /* ── Scroll animations ── */
@@ -201,35 +201,3 @@ tbody tr:hover { background: var(--gray-lt); }
   .footer-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
-/* 强制缩小所有图标 */
-.topbar-item svg,
-.footer-contact-item svg,
-.cta-contact-item svg,
-.topbar svg,
-.footer-contact-item svg,
-.cta-contact-item svg {
-    width: 14px !important;
-    height: 14px !important;
-    max-width: 14px !important;
-    min-width: 14px !important;
-}
-/* ===== 强制缩小所有图标 - 最终方案 ===== */
-.topbar-item svg,
-.footer-contact-item svg,
-.cta-contact-item svg,
-.hero-badge-play svg,
-.feat-chip svg,
-.what-card-img-placeholder svg,
-.stat-icon svg,
-.why-item-icon svg,
-.prod-img-icon svg,
-.social-btn svg {
-    width: 14px !important;
-    height: 14px !important;
-}
-
-/* WhatsApp 浮动按钮保持大小 */
-.wa-float svg {
-    width: 24px !important;
-    height: 24px !important;
-}
