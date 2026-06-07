@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin Login – Siyin Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#0033A0 0%,#1A4FC4 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.card{background:#fff;border-radius:16px;padding:44px 40px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.logo{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:32px}
+.logo-box{width:44px;height:44px;background:#0033A0;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;color:#fff}
+.logo-text strong{display:block;font-size:15px;font-weight:800;color:#0033A0;line-height:1.15}
+.logo-text em{font-style:normal;font-size:10.5px;color:#8A96A8}
+h1{font-size:22px;font-weight:800;color:#1A1A2E;margin-bottom:4px;text-align:center}
+.subtitle{font-size:13px;color:#8A96A8;text-align:center;margin-bottom:28px}
+.form-group{margin-bottom:18px}
+.form-label{display:block;font-size:13px;font-weight:600;color:#1A1A2E;margin-bottom:6px}
+.form-input{width:100%;padding:12px 14px;border:1.5px solid #E5E8EF;border-radius:8px;font-family:inherit;font-size:14px;color:#1A1A2E;outline:none;transition:border-color .2s,box-shadow .2s}
+.form-input:focus{border-color:#0033A0;box-shadow:0 0 0 3px rgba(0,51,160,.1)}
+.pass-wrap{position:relative}
+.pass-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);cursor:pointer;color:#8A96A8;background:none;border:none;font-size:16px;padding:4px}
+.btn-login{width:100%;padding:13px;background:#0033A0;color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;margin-top:4px}
+.btn-login:hover{background:#002280;transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,51,160,.35)}
+.hint{font-size:12px;color:#8A96A8;text-align:center;margin-top:18px;padding-top:18px;border-top:1px solid #E5E8EF}
+.hint strong{color:#0033A0}
+.error-msg{background:#FEE2E2;color:#B91C1C;font-size:13px;padding:10px 14px;border-radius:7px;margin-bottom:16px;display:none;text-align:center}
+.dots{position:fixed;inset:0;pointer-events:none;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.08) 1px,transparent 0);background-size:32px 32px}
+</style>
+</head>
+<body>
+<div class="dots"></div>
+<div class="card">
+  <div class="logo">
+    <div class="logo-box">SY</div>
+    <div class="logo-text"><strong>Siyin Admin</strong><em>Management System</em></div>
+  </div>
+  <h1>Welcome Back</h1>
+  <p class="subtitle">Sign in to manage your website</p>
+  <div class="error-msg" id="errorMsg">❌ Wrong username or password</div>
+  <form id="loginForm">
+    <div class="form-group">
+      <label class="form-label">Username</label>
+      <input class="form-input" type="text" id="username" placeholder="admin" autocomplete="username">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <div class="pass-wrap">
+        <input class="form-input" type="password" id="password" placeholder="Enter password" autocomplete="current-password">
+        <button type="button" class="pass-toggle" onclick="togglePass()">👁</button>
+      </div>
+    </div>
+    <button type="submit" class="btn-login">Sign In →</button>
+  </form>
+  <p class="hint">Default login: <strong>admin</strong> / <strong>siyin2025</strong><br>Change password after first login</p>
+</div>
+<script>
+function togglePass(){
+  const p=document.getElementById('password');
+  p.type=p.type==='password'?'text':'password';
+}
+document.getElementById('loginForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  const u=document.getElementById('username').value.trim();
+  const p=document.getElementById('password').value;
+  // Read stored credentials or use defaults
+  const storedUser=localStorage.getItem('admin_user')||'admin';
+  const storedPass=localStorage.getItem('admin_pass')||'siyin2025';
+  if(u===storedUser && p===storedPass){
+    sessionStorage.setItem('siyin_admin','1');
+    sessionStorage.setItem('siyin_admin_user',u);
+    window.location.href='dashboard.html';
+  } else {
+    document.getElementById('errorMsg').style.display='block';
+    document.getElementById('password').value='';
+  }
+});
+// Already logged in?
+if(sessionStorage.getItem('siyin_admin')==='1') window.location.href='dashboard.html';
+</script>
+</body>
+</html>
