@@ -201,3 +201,52 @@ tbody tr:hover { background: var(--gray-lt); }
   .footer-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
+/* ========== 修复深色栏文字看不见 + WhatsApp图标太大 ========== */
+.topbar {
+  color: #ffffff !important;
+}
+.topbar .tb-item svg {
+  fill: #ffffff !important;
+  width: 14px !important;
+  height: 14px !important;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.topbar .tb-item a {
+  color: #ffffff !important;
+}
+
+.site-footer {
+  color: #ffffff !important;
+}
+.site-footer svg {
+  fill: #ffffff !important;
+}
+.site-footer a {
+  color: #ffffff !important;
+}
+.site-footer a:hover {
+  color: #cccccc !important;
+  text-decoration: underline;
+}
+
+.f-contact-row svg {
+  width: 16px !important;
+  height: 16px !important;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.wa-btn {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wa-btn svg {
+  width: 24px !important;
+  height: 24px !important;
+  fill: #ffffff !important;
+}
