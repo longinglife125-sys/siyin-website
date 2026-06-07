@@ -277,3 +277,394 @@ tbody tr:hover { background: var(--gray-lt); }
 .footer-bar {
     border-top-color: rgba(255,255,255,0.15) !important;
 }
+/* ============================================
+   完整手机适配（覆盖所有页面）
+   ============================================ */
+
+/* 所有图片和 SVG 自适应 */
+img, svg, video, iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 手机端样式 */
+@media (max-width: 768px) {
+  
+  /* 基础容器 */
+  .container {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    max-width: 100% !important;
+  }
+  
+  /* === 顶部栏 === */
+  .topbar-inner {
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 16px;
+  }
+  
+  .topbar-left, .topbar-right {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+  
+  .tb-item {
+    font-size: 11px;
+  }
+  
+  /* === 导航栏 === */
+  .nav-inner {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 12px 16px;
+    gap: 12px;
+  }
+  
+  .logo {
+    flex: 1;
+  }
+  
+  .logo-info strong {
+    font-size: 12px;
+  }
+  
+  .logo-info em {
+    font-size: 9px;
+  }
+  
+  .nav-menu {
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 4px;
+    padding-bottom: 4px;
+  }
+  
+  .nav-link {
+    font-size: 12px;
+    padding: 6px 10px;
+    white-space: nowrap;
+  }
+  
+  .nav-actions {
+    gap: 8px;
+  }
+  
+  .nav-actions .btn {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+  
+  /* === Hero 区域 === */
+  .hero {
+    min-height: auto !important;
+    padding: 40px 0;
+  }
+  
+  .hero-bg-photo {
+    width: 100% !important;
+    opacity: 0.3;
+  }
+  
+  .hero-content {
+    padding: 40px 0 60px !important;
+  }
+  
+  .hero-h1 {
+    font-size: 32px !important;
+    line-height: 1.2 !important;
+  }
+  
+  .hero-desc {
+    font-size: 14px !important;
+    max-width: 100% !important;
+  }
+  
+  .hero-feats {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .feat-chip {
+    flex: 1 1 calc(50% - 8px);
+    min-width: 140px;
+  }
+  
+  .hero-cta {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  
+  .hero-cta .btn {
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .hero-badge {
+    display: none !important;
+  }
+  
+  /* === Stats 统计栏 === */
+  .stats-inner {
+    flex-direction: column;
+    padding: 0 !important;
+  }
+  
+  .stat-col {
+    border-right: none !important;
+    border-bottom: 1px solid var(--gray-bd);
+    padding: 16px 20px;
+  }
+  
+  .cert-cols {
+    border-left: none !important;
+    justify-content: center;
+  }
+  
+  /* === Why + What 区域 === */
+  .why-what-grid {
+    grid-template-columns: 1fr !important;
+    padding: 40px 20px !important;
+    gap: 40px;
+  }
+  
+  .why-col, .what-col {
+    padding: 0 !important;
+  }
+  
+  .divider-col {
+    display: none;
+  }
+  
+  .why-items {
+    gap: 20px;
+  }
+  
+  .what-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+  
+  /* === Applications 应用区域 === */
+  .apps-row {
+    gap: 12px;
+  }
+  
+  .app-tile {
+    flex: 0 0 140px;
+    height: 130px;
+  }
+  
+  .app-tile-more {
+    flex: 0 0 140px;
+    height: 130px;
+  }
+  
+  /* === Process 流程区域 === */
+  .process-flow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  
+  .proc-step {
+    flex-direction: row;
+    text-align: left;
+    gap: 20px;
+    min-width: auto;
+    padding: 12px;
+  }
+  
+  .proc-circle {
+    width: 60px;
+    height: 60px;
+    margin: 0;
+  }
+  
+  .proc-arrow {
+    display: none;
+  }
+  
+  .proc-dot-num {
+    display: none;
+  }
+  
+  .proc-title {
+    font-size: 14px;
+  }
+  
+  /* === Products 产品区域 === */
+  .products-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px;
+  }
+  
+  .prod-name {
+    font-size: 11px;
+  }
+  
+  .prod-spec {
+    font-size: 9px;
+  }
+  
+  /* === Trust 信任区域 === */
+  .trust-grid {
+    grid-template-columns: 1fr !important;
+    padding: 0 20px !important;
+    gap: 40px;
+  }
+  
+  .trust-div {
+    display: none;
+  }
+  
+  .brands-col, .certs-col {
+    padding: 0 !important;
+  }
+  
+  .brand-logos {
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .cert-badges {
+    justify-content: center;
+  }
+  
+  /* === CTA 横幅 === */
+  .cta-band {
+    padding: 40px 0;
+  }
+  
+  .cta-band-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 24px;
+  }
+  
+  .cta-band-right {
+    align-items: center;
+    width: 100%;
+  }
+  
+  .cta-band-btns {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .cta-band-btns .btn {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .cta-contacts {
+    align-items: center;
+    font-size: 12px;
+  }
+  
+  /* === 底部 Footer === */
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px;
+    text-align: center;
+  }
+  
+  .footer-logo {
+    justify-content: center;
+  }
+  
+  .footer-about {
+    max-width: 100%;
+    text-align: center;
+  }
+  
+  .footer-socials {
+    justify-content: center;
+  }
+  
+  .f-links a {
+    justify-content: center;
+  }
+  
+  .f-contact-row {
+    justify-content: center;
+  }
+  
+  .footer-bar {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .footer-bar-links {
+    justify-content: center;
+  }
+  
+  /* === 通用调整 === */
+  .section {
+    padding: 40px 0;
+  }
+  
+  .section-title {
+    font-size: 24px !important;
+  }
+  
+  .section-sub {
+    font-size: 14px !important;
+  }
+  
+  /* 按钮大小调整 */
+  .btn-lg {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+  
+  /* 表单 */
+  .form-row {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* 表格 */
+  .table-wrap {
+    overflow-x: auto;
+  }
+  
+  table {
+    min-width: 600px;
+  }
+}
+
+/* 小手机（480px以下） */
+@media (max-width: 480px) {
+  .hero-h1 {
+    font-size: 28px !important;
+  }
+  
+  .feat-chip {
+    flex: 1 1 100%;
+  }
+  
+  .products-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .app-tile, .app-tile-more {
+    flex: 0 0 120px;
+    height: 120px;
+  }
+  
+  .topbar-left, .topbar-right {
+    flex-direction: column;
+    gap: 6px;
+  }
+}
