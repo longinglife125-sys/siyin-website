@@ -217,3 +217,18 @@ document.addEventListener('submit', function(e) {
   if (btn) { btn.textContent = '✓ Sent! We\'ll reply within 24h'; btn.disabled = true; btn.style.background = '#22c55e'; }
   showToast('Message sent! We will reply within 24 hours.', 'success');
 });
+/* 统一缩小顶部 SVG 图标 */
+.topbar .tb-item svg {
+  width: 14px !important;
+  height: 14px !important;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* 统一缩小底部 SVG 图标 */
+.f-contact-row svg {
+  width: 16px !important;
+  height: 16px !important;
+  margin-right: 8px;
+  vertical-align: middle;
+}
