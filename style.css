@@ -201,35 +201,39 @@ tbody tr:hover { background: var(--gray-lt); }
   .footer-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
-/* ===== 修复图标大小 + 底部颜色 ===== */
+/* ===== 修复顶部栏（白色背景用深色字）+ 底部栏（深色背景用白色字）===== */
 
-/* 1. 统一图标大小为合适尺寸 */
-.topbar-item svg,
-.tb-item svg,
-.f-contact-row svg,
-.footer-contact-item svg,
-.cta-contact-item svg {
-    width: 16px !important;
-    height: 16px !important;
-}
-
-/* 2. 顶部栏 - 深色背景用白色文字和图标 */
+/* 顶部栏 - 白色背景用深色文字和图标 */
 .topbar,
 .topbar *,
 .tb-item,
 .tb-item a,
 .topbar-left,
 .topbar-right {
-    color: #ffffff !important;
+    color: #1A1A2E !important;
 }
 
 .topbar svg,
 .tb-item svg {
-    stroke: #ffffff !important;
+    stroke: #4A5568 !important;
     fill: none !important;
 }
 
-/* 3. 底部栏 - 深色背景用白色文字和图标 */
+.topbar {
+    background: #FFFFFF !important;
+    border-bottom: 1px solid #E5E8EF !important;
+}
+
+/* 图标大小统一 */
+.topbar-item svg,
+.tb-item svg,
+.f-contact-row svg,
+.footer-contact-item svg {
+    width: 16px !important;
+    height: 16px !important;
+}
+
+/* 底部栏 - 深色背景用白色文字和图标 */
 .site-footer,
 .site-footer *,
 .footer-grid *,
@@ -247,7 +251,6 @@ tbody tr:hover { background: var(--gray-lt); }
     color: #ffffff !important;
 }
 
-/* 底部图标变白 */
 .site-footer svg,
 .f-contact-row svg,
 .footer-contact-item svg {
@@ -255,14 +258,12 @@ tbody tr:hover { background: var(--gray-lt); }
     fill: none !important;
 }
 
-/* 底部链接悬停变黄色 */
 .f-links a:hover,
 .f-contact-row a:hover,
 .footer-bar-links a:hover {
     color: #F5A623 !important;
 }
 
-/* 底部社交图标 */
 .f-social {
     border-color: rgba(255,255,255,0.3) !important;
     color: #ffffff !important;
@@ -273,7 +274,6 @@ tbody tr:hover { background: var(--gray-lt); }
     color: #F5A623 !important;
 }
 
-/* 底部栏分隔线 */
 .footer-bar {
     border-top-color: rgba(255,255,255,0.15) !important;
 }
