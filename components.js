@@ -218,13 +218,14 @@ document.addEventListener('submit', function(e) {
   showToast('Message sent! We will reply within 24 hours.', 'success');
 });
 /* ==========================================
-   只修改电话/邮箱/位置图标大小（更小精致版）
+   修复顶部栏和 Footer 图标大小（精致版）
+   适用于动态注入的 SVG
    ========================================== */
 .tb-item svg,
 .f-contact-row svg,
 .footer-bar svg {
-    width: 13px;       /* 更小，更精致 */
-    height: 13px;      /* 更小，更精致 */
-    vertical-align: middle;
-    margin-right: 5px; /* 间距稍微收紧一点 */
+    width: 13px !important;       /* 图标宽度 */
+    height: 13px !important;      /* 图标高度 */
+    vertical-align: middle !important; /* 保持和文字对齐 */
+    margin-right: 5px !important; /* 图标和文字间距 */
 }
