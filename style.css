@@ -1,0 +1,214 @@
+/* =====================
+   Global Reset
+===================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f6f8fc;
+    color: #0f172a;
+}
+
+/* =====================
+   NAVIGATION
+===================== */
+.nav {
+    background: #0f2b3d;
+    padding: 14px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav .logo {
+    color: #fff;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.nav a {
+    color: #fff;
+    margin-left: 20px;
+    text-decoration: none;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* =====================
+   HERO SECTION
+===================== */
+.hero {
+    display: flex;
+    min-height: 78vh;
+    background: #0f2b3d;
+    color: #fff;
+}
+
+.hero-left {
+    flex: 1;
+    padding: 80px 60px;
+}
+
+.hero-right {
+    flex: 1;
+    background: url('../images/hero.jpg') center/cover no-repeat;
+}
+
+.hero h1 {
+    font-size: 44px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 16px;
+    opacity: 0.9;
+    max-width: 520px;
+}
+
+.cta {
+    margin-top: 30px;
+    display: flex;
+    gap: 12px;
+}
+
+.btn {
+    padding: 12px 22px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background: #00bfff;
+    color: #fff;
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid #00bfff;
+    color: #fff;
+}
+
+/* =====================
+   SECTIONS
+===================== */
+.section {
+    padding: 70px 32px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.title {
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
+/* =====================
+   GRID SYSTEM
+===================== */
+.grid3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 16px;
+}
+
+/* =====================
+   WHY CHOOSE US
+===================== */
+.why {
+    background: #fff;
+}
+
+/* =====================
+   FLOW STEPS
+===================== */
+.flow {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+}
+
+.step {
+    min-width: 180px;
+    background: #fff;
+    padding: 16px;
+    border-radius: 14px;
+}
+
+/* =====================
+   PRODUCTS
+===================== */
+.products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.product {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.product img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+}
+
+.product div {
+    padding: 12px;
+    font-size: 14px;
+}
+
+/* =====================
+   CTA BOX
+===================== */
+.cta-box {
+    background: #0f2b3d;
+    color: #fff;
+    padding: 60px;
+    text-align: center;
+    border-radius: 18px;
+}
+
+/* =====================
+   FOOTER
+===================== */
+.footer {
+    padding: 40px;
+    text-align: center;
+    background: #0b1f2b;
+    color: #94a3b8;
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
+@media(max-width:768px){
+    .hero {
+        flex-direction: column;
+    }
+    .hero-left {
+        padding: 40px 20px;
+    }
+    .products {
+        grid-template-columns: repeat(2,1fr);
+    }
+    .grid3 {
+        grid-template-columns: 1fr;
+    }
+}
