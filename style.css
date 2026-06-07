@@ -272,3 +272,79 @@ div.bg-black *,
   color: #ffffff !important;
   border-color: #333333 !important;
 }
+/* ===== 修复图标大小 + 底部颜色 ===== */
+
+/* 1. 统一图标大小为合适尺寸 */
+.topbar-item svg,
+.tb-item svg,
+.f-contact-row svg,
+.footer-contact-item svg,
+.cta-contact-item svg {
+    width: 16px !important;
+    height: 16px !important;
+}
+
+/* 2. 顶部栏 - 深色背景用白色文字和图标 */
+.topbar,
+.topbar *,
+.tb-item,
+.tb-item a,
+.topbar-left,
+.topbar-right {
+    color: #ffffff !important;
+}
+
+.topbar svg,
+.tb-item svg {
+    stroke: #ffffff !important;
+    fill: none !important;
+}
+
+/* 3. 底部栏 - 深色背景用白色文字和图标 */
+.site-footer,
+.site-footer *,
+.footer-grid *,
+.footer-logo *,
+.footer-about,
+.f-col-title,
+.f-links a,
+.f-contact,
+.f-contact-row,
+.f-contact-row a,
+.f-contact-row span,
+.footer-bar p,
+.footer-bar-links a,
+.footer-socials .f-social {
+    color: #ffffff !important;
+}
+
+/* 底部图标变白 */
+.site-footer svg,
+.f-contact-row svg,
+.footer-contact-item svg {
+    stroke: #ffffff !important;
+    fill: none !important;
+}
+
+/* 底部链接悬停变黄色 */
+.f-links a:hover,
+.f-contact-row a:hover,
+.footer-bar-links a:hover {
+    color: #F5A623 !important;
+}
+
+/* 底部社交图标 */
+.f-social {
+    border-color: rgba(255,255,255,0.3) !important;
+    color: #ffffff !important;
+}
+
+.f-social:hover {
+    border-color: #F5A623 !important;
+    color: #F5A623 !important;
+}
+
+/* 底部栏分隔线 */
+.footer-bar {
+    border-top-color: rgba(255,255,255,0.15) !important;
+}
