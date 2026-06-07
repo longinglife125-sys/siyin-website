@@ -217,3 +217,14 @@ document.addEventListener('submit', function(e) {
   if (btn) { btn.textContent = '✓ Sent! We\'ll reply within 24h'; btn.disabled = true; btn.style.background = '#22c55e'; }
   showToast('Message sent! We will reply within 24 hours.', 'success');
 });
+/* ==========================================
+   只修改电话/邮箱/位置图标大小
+   ========================================== */
+.tb-item svg,
+.f-contact-row svg,
+.footer-bar svg {
+    width: 16px;       /* 图标宽度 */
+    height: 16px;      /* 图标高度 */
+    vertical-align: middle; /* 保持和文字对齐 */
+    margin-right: 6px; /* 图标和文字间距 */
+}
