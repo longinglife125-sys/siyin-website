@@ -201,3 +201,9 @@ tbody tr:hover { background: var(--gray-lt); }
   .footer-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
+/* 强制缩小图标 - 测试用 */
+.topbar .tb-item svg,
+.f-contact-row svg {
+    width: 14px !important;
+    height: 14px !important;
+}
