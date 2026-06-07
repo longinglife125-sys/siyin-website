@@ -229,3 +229,12 @@ document.addEventListener('submit', function(e) {
     vertical-align: middle !important; /* 保持和文字对齐 */
     margin-right: 5px !important; /* 图标和文字间距 */
 }
+.tb-item svg,
+.f-contact-row svg,
+.footer-bar svg {
+    width: 13px !important;
+    height: 13px !important;
+    max-width: 13px !important;
+    max-height: 13px !important;
+    display: inline-block !important;
+}
