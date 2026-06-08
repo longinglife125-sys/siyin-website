@@ -671,21 +671,37 @@ ul {
   line-height: 1.5;
 }
 
-/* ── Applications 横向滑动 ── */
+/* ── Applications 横向滑动（增强版）── */
 .apps {
   background: var(--gray-lt);
   padding: 60px 0;
+}
+.apps-slider-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 .apps-row {
   display: flex;
   gap: 16px;
   overflow-x: auto;
+  scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
-  padding-bottom: 8px;
+  padding: 8px 0 16px;
   -webkit-overflow-scrolling: touch;
+  flex: 1;
 }
 .apps-row::-webkit-scrollbar {
-  display: none;
+  height: 4px;
+}
+.apps-row::-webkit-scrollbar-track {
+  background: var(--gray-bd);
+  border-radius: 4px;
+}
+.apps-row::-webkit-scrollbar-thumb {
+  background: var(--blue);
+  border-radius: 4px;
 }
 .app-tile {
   flex: 0 0 160px;
@@ -695,6 +711,7 @@ ul {
   position: relative;
   scroll-snap-align: start;
   cursor: pointer;
+  flex-shrink: 0;
 }
 .app-tile img {
   width: 100%;
@@ -718,6 +735,7 @@ ul {
   font-size: 13px;
   font-weight: 700;
   color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,.3);
 }
 .app-tile-more {
   flex: 0 0 160px;
@@ -731,18 +749,69 @@ ul {
   gap: 8px;
   cursor: pointer;
   scroll-snap-align: start;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
 }
 .app-tile-more:hover {
   opacity: 0.9;
 }
 .app-tile-more-arrow {
-  font-size: 28px;
-  color: rgba(255,255,255,.8);
+  font-size: 32px;
+  color: rgba(255,255,255,.9);
 }
 .app-tile-more-label {
   font-size: 12px;
   font-weight: 700;
   color: #fff;
+  text-align: center;
+}
+/* 左右箭头按钮 */
+.slider-arrow {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1.5px solid var(--gray-bd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.slider-arrow:hover {
+  background: var(--blue);
+  border-color: var(--blue);
+}
+.slider-arrow:hover svg {
+  stroke: #fff;
+}
+.slider-arrow svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--blue);
+  fill: none;
+  stroke-width: 2.5;
+}
+/* 滚动指示器 */
+.scroll-indicator {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+.scroll-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gray-bd);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.scroll-dot.active {
+  width: 24px;
+  border-radius: 4px;
+  background: var(--blue);
 }
 
 /* ── Process ── */
@@ -1233,6 +1302,19 @@ ul {
     grid-template-columns: 1fr;
     gap: 16px;
   }
+  
+  /* Applications 手机端隐藏箭头，显示小圆点 */
+  .slider-arrow {
+    display: none;
+  }
+  .scroll-indicator {
+    display: flex;
+  }
+  .app-tile, .app-tile-more {
+    flex: 0 0 140px;
+    height: 140px;
+  }
+  
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1299,6 +1381,12 @@ ul {
   }
   .why-section, .what-section {
     padding: 50px 0;
+  }
+}
+
+@media (min-width: 769px) {
+  .scroll-indicator {
+    display: none;
   }
 }
 
@@ -1477,20 +1565,37 @@ ul {
   </div>
 </div>
 
-<!-- APPLICATIONS - 横向滑动 -->
+<!-- APPLICATIONS - 横向滑动（增强版：带左右箭头 + 小圆点） -->
 <section class="apps">
   <div class="container">
     <div class="section-tag">Applications</div>
     <h2 class="section-title">One Material, Endless Uses</h2>
-    <div class="apps-row">
-      <div class="app-tile"><img src="images/app-wetsuit.jpg" alt="Wetsuits" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Wetsuits</div></div>
-      <div class="app-tile"><img src="images/app-sports.jpg" alt="Sports Gear" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Sports Gear</div></div>
-      <div class="app-tile"><img src="images/app-bottle.jpg" alt="Bottle Sleeves" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Bottle Sleeves</div></div>
-      <div class="app-tile"><img src="images/app-bags.jpg" alt="Bags & Luggage" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Bags & Luggage</div></div>
-      <div class="app-tile"><img src="images/app-fitness.jpg" alt="Fitness & Support" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Fitness & Support</div></div>
-      <div class="app-tile"><img src="images/app-shoes.jpg" alt="Footwear" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Footwear</div></div>
-      <div class="app-tile"><img src="images/app-pet.jpg" alt="Pet Life Jackets" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Pet Life Jackets</div></div>
-      <a href="applications.html" class="app-tile-more"><div class="app-tile-more-arrow">→</div><div class="app-tile-more-label">More<br>Applications</div></a>
+    <div class="apps-slider-wrapper">
+      <button class="slider-arrow prev" onclick="scrollApps(-1)" aria-label="Previous">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      
+      <div class="apps-row" id="appsRow">
+        <div class="app-tile"><img src="images/app-wetsuit.jpg" alt="Wetsuits" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Wetsuits</div></div>
+        <div class="app-tile"><img src="images/app-sports.jpg" alt="Sports Gear" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Sports Gear</div></div>
+        <div class="app-tile"><img src="images/app-bottle.jpg" alt="Bottle Sleeves" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Bottle Sleeves</div></div>
+        <div class="app-tile"><img src="images/app-bags.jpg" alt="Bags & Luggage" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Bags & Luggage</div></div>
+        <div class="app-tile"><img src="images/app-fitness.jpg" alt="Fitness & Support" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Fitness & Support</div></div>
+        <div class="app-tile"><img src="images/app-shoes.jpg" alt="Footwear" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Footwear</div></div>
+        <div class="app-tile"><img src="images/app-pet.jpg" alt="Pet Life Jackets" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Pet Life Jackets</div></div>
+        <a href="applications.html" class="app-tile-more"><div class="app-tile-more-arrow">→</div><div class="app-tile-more-label">More<br>Applications</div></a>
+      </div>
+      
+      <button class="slider-arrow next" onclick="scrollApps(1)" aria-label="Next">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+    
+    <!-- 滚动提示小圆点 -->
+    <div class="scroll-indicator" id="scrollIndicator">
+      <div class="scroll-dot active" onclick="scrollToSlide(0)"></div>
+      <div class="scroll-dot" onclick="scrollToSlide(1)"></div>
+      <div class="scroll-dot" onclick="scrollToSlide(2)"></div>
     </div>
   </div>
 </section>
@@ -1611,5 +1716,43 @@ ul {
 </a>
 
 <script src="main.js"></script>
+<script>
+// Applications 滑动功能
+function scrollApps(direction) {
+  const container = document.getElementById('appsRow');
+  if (!container) return;
+  const scrollAmount = 280;
+  container.scrollBy({
+    left: direction * scrollAmount,
+    behavior: 'smooth'
+  });
+}
+
+function scrollToSlide(index) {
+  const container = document.getElementById('appsRow');
+  if (!container) return;
+  const scrollAmount = index * 280;
+  container.scrollTo({
+    left: scrollAmount,
+    behavior: 'smooth'
+  });
+}
+
+// 监听滚动更新小圆点
+if (document.getElementById('appsRow')) {
+  const appsRow = document.getElementById('appsRow');
+  appsRow.addEventListener('scroll', function() {
+    const scrollLeft = appsRow.scrollLeft;
+    const maxScroll = appsRow.scrollWidth - appsRow.clientWidth;
+    const totalDots = document.querySelectorAll('.scroll-dot').length;
+    if (maxScroll <= 0) return;
+    const index = Math.round((scrollLeft / maxScroll) * (totalDots - 1));
+    const dots = document.querySelectorAll('.scroll-dot');
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+  });
+}
+</script>
 </body>
 </html>
