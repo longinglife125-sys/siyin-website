@@ -812,12 +812,43 @@ ul {
   background: var(--blue);
 }
 
-/* ── Process 增强动态效果（横排滚动）── */
+/* ── Process 横排显示（电脑+手机都是横排）── */
+.process {
+  background: #fff;
+  padding: 70px 0;
+}
+.process-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.process-flow {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  overflow-x: auto;
+}
 .proc-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  min-width: 110px;
+  padding: 0 8px;
   transition: all 0.3s ease;
   cursor: pointer;
 }
-
+.proc-dot-num {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: var(--blue);
+  margin-bottom: 10px;
+  transition: transform 0.2s ease;
+}
 .proc-circle {
   width: 80px;
   height: 80px;
@@ -828,37 +859,23 @@ ul {
   margin: 0 auto 14px;
   transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
 }
-
 .proc-circle img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.4s ease;
 }
-
 .proc-title {
   font-size: 13px;
   font-weight: 800;
   color: var(--text);
   line-height: 1.3;
 }
-
 .proc-note {
   font-size: 11px;
   color: var(--blue);
   font-weight: 700;
 }
-
-.proc-dot-num {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  color: var(--blue);
-  margin-bottom: 10px;
-  transition: transform 0.2s ease;
-}
-
 .proc-arrow {
   padding-top: 28px;
   color: var(--blue);
@@ -870,21 +887,17 @@ ul {
 .proc-step:hover {
   transform: translateY(-4px);
 }
-
 .proc-step:hover .proc-circle {
   border-color: var(--blue);
   transform: scale(1.05);
   box-shadow: 0 8px 24px rgba(0,51,160,.2);
 }
-
 .proc-step:hover .proc-circle img {
   transform: scale(1.08);
 }
-
 .proc-step:hover .proc-title {
   color: var(--blue);
 }
-
 .proc-step:hover .proc-dot-num {
   transform: scale(1.1);
 }
@@ -1342,26 +1355,26 @@ ul {
   
   /* Process 手机端保持横排滑动 */
   .process-flow {
-    flex-direction: row;
-    overflow-x: auto;
-    gap: 8px;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    gap: 8px !important;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: 16px;
+    padding-bottom: 16px !important;
   }
   .proc-step {
-    flex-direction: column;
-    text-align: center;
-    gap: 8px;
-    min-width: 100px;
-    flex-shrink: 0;
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 8px !important;
+    min-width: 100px !important;
+    flex-shrink: 0 !important;
   }
   .proc-circle {
-    margin: 0 auto 10px;
+    margin: 0 auto 10px !important;
   }
   .proc-arrow {
-    display: flex;
-    padding-top: 28px;
-    flex-shrink: 0;
+    display: block !important;
+    padding-top: 28px !important;
+    flex-shrink: 0 !important;
   }
   
   .products-grid {
@@ -1537,7 +1550,7 @@ ul {
   </div>
 </div>
 
-<!-- WHY CHOOSE US - 左边文字，右边图片 -->
+<!-- WHY CHOOSE US -->
 <div class="why-section">
   <div class="why-container">
     <div class="why-left">
@@ -1578,61 +1591,38 @@ ul {
     <h2 class="section-title">One-Stop Neoprene Solutions</h2>
     <p class="section-sub">From material development and sampling to mass production — all under one roof.</p>
     <div class="what-grid">
-      <div class="what-card">
-        <div class="what-card-img"><img src="images/lamination.jpg" alt="Custom Neoprene Lamination" loading="lazy"></div>
-        <div class="what-card-body"><div class="what-card-title">Custom Neoprene Lamination</div><div class="what-card-desc">Thickness, structure, fabric combinations to spec</div></div>
-      </div>
-      <div class="what-card">
-        <div class="what-card-img"><img src="images/oem-fabric.jpg" alt="OEM ODM Development" loading="lazy"></div>
-        <div class="what-card-body"><div class="what-card-title">OEM / ODM Development</div><div class="what-card-desc">Custom designs for brands & private label</div></div>
-      </div>
-      <div class="what-card">
-        <div class="what-card-img"><img src="images/sampling.jpg" alt="Sample Development" loading="lazy"></div>
-        <div class="what-card-body"><div class="what-card-title">Sample Development</div><div class="what-card-desc">Fast 3–7 day turnaround on samples</div></div>
-      </div>
-      <div class="what-card">
-        <div class="what-card-img"><img src="images/mass-production.jpg" alt="Mass Production" loading="lazy"></div>
-        <div class="what-card-body"><div class="what-card-title">Mass Production</div><div class="what-card-desc">10,000+ rolls/month, stable supply chain</div></div>
-      </div>
+      <div class="what-card"><div class="what-card-img"><img src="images/lamination.jpg" alt="Custom Neoprene Lamination" loading="lazy"></div><div class="what-card-body"><div class="what-card-title">Custom Neoprene Lamination</div><div class="what-card-desc">Thickness, structure, fabric combinations to spec</div></div></div>
+      <div class="what-card"><div class="what-card-img"><img src="images/oem-fabric.jpg" alt="OEM ODM Development" loading="lazy"></div><div class="what-card-body"><div class="what-card-title">OEM / ODM Development</div><div class="what-card-desc">Custom designs for brands & private label</div></div></div>
+      <div class="what-card"><div class="what-card-img"><img src="images/sampling.jpg" alt="Sample Development" loading="lazy"></div><div class="what-card-body"><div class="what-card-title">Sample Development</div><div class="what-card-desc">Fast 3–7 day turnaround on samples</div></div></div>
+      <div class="what-card"><div class="what-card-img"><img src="images/mass-production.jpg" alt="Mass Production" loading="lazy"></div><div class="what-card-body"><div class="what-card-title">Mass Production</div><div class="what-card-desc">10,000+ rolls/month, stable supply chain</div></div></div>
     </div>
   </div>
 </div>
 
-<!-- APPLICATIONS - 横向滑动 -->
+<!-- APPLICATIONS -->
 <section class="apps">
   <div class="container">
     <div class="section-tag">Applications</div>
     <h2 class="section-title">One Material, Endless Uses</h2>
     <div class="apps-slider-wrapper">
-      <button class="slider-arrow prev" onclick="scrollApps(-1)" aria-label="Previous">
-        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-      </button>
-      
+      <button class="slider-arrow prev" onclick="scrollApps(-1)">‹</button>
       <div class="apps-row" id="appsRow">
-        <div class="app-tile"><img src="images/app-wetsuit.jpg" alt="Wetsuits" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Wetsuits</div></div>
-        <div class="app-tile"><img src="images/app-sports.jpg" alt="Sports Gear" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Sports Gear</div></div>
-        <div class="app-tile"><img src="images/app-bottle.jpg" alt="Bottle Sleeves" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Bottle Sleeves</div></div>
-        <div class="app-tile"><img src="images/app-bags.jpg" alt="Bags & Luggage" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Bags & Luggage</div></div>
-        <div class="app-tile"><img src="images/app-fitness.jpg" alt="Fitness & Support" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Fitness & Support</div></div>
-        <div class="app-tile"><img src="images/app-shoes.jpg" alt="Footwear" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Footwear</div></div>
-        <div class="app-tile"><img src="images/app-pet.jpg" alt="Pet Life Jackets" loading="lazy"><div class="app-tile-overlay"></div><div class="app-tile-name">Pet Life Jackets</div></div>
-        <a href="applications.html" class="app-tile-more"><div class="app-tile-more-arrow">→</div><div class="app-tile-more-label">More<br>Applications</div></a>
+        <div class="app-tile"><img src="images/app-wetsuit.jpg" alt="Wetsuits"><div class="app-tile-overlay"></div><div class="app-tile-name">Wetsuits</div></div>
+        <div class="app-tile"><img src="images/app-sports.jpg" alt="Sports Gear"><div class="app-tile-overlay"></div><div class="app-tile-name">Sports Gear</div></div>
+        <div class="app-tile"><img src="images/app-bottle.jpg" alt="Bottle Sleeves"><div class="app-tile-overlay"></div><div class="app-tile-name">Bottle Sleeves</div></div>
+        <div class="app-tile"><img src="images/app-bags.jpg" alt="Bags & Luggage"><div class="app-tile-overlay"></div><div class="app-tile-name">Bags & Luggage</div></div>
+        <div class="app-tile"><img src="images/app-fitness.jpg" alt="Fitness & Support"><div class="app-tile-overlay"></div><div class="app-tile-name">Fitness & Support</div></div>
+        <div class="app-tile"><img src="images/app-shoes.jpg" alt="Footwear"><div class="app-tile-overlay"></div><div class="app-tile-name">Footwear</div></div>
+        <div class="app-tile"><img src="images/app-pet.jpg" alt="Pet Life Jackets"><div class="app-tile-overlay"></div><div class="app-tile-name">Pet Life Jackets</div></div>
+        <a href="applications.html" class="app-tile-more"><div class="app-tile-more-arrow">→</div><div class="app-tile-more-label">More Apps</div></a>
       </div>
-      
-      <button class="slider-arrow next" onclick="scrollApps(1)" aria-label="Next">
-        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-      </button>
+      <button class="slider-arrow next" onclick="scrollApps(1)">›</button>
     </div>
-    
-    <div class="scroll-indicator" id="scrollIndicator">
-      <div class="scroll-dot active" onclick="scrollToSlide(0)"></div>
-      <div class="scroll-dot" onclick="scrollToSlide(1)"></div>
-      <div class="scroll-dot" onclick="scrollToSlide(2)"></div>
-    </div>
+    <div class="scroll-indicator"><div class="scroll-dot active"></div><div class="scroll-dot"></div><div class="scroll-dot"></div></div>
   </div>
 </section>
 
-<!-- PROCESS - 横排显示（电脑+手机都是横排） -->
+<!-- PROCESS -->
 <section class="process">
   <div class="container">
     <div class="process-header">
@@ -1663,20 +1653,20 @@ ul {
   <div class="container">
     <div class="products-header">
       <div><div class="section-tag">Featured Products</div><h2 class="section-title">Our Product Range</h2></div>
-      <a href="products.html" class="btn btn-outline">View All Products →</a>
+      <a href="products.html" class="btn btn-outline">View All →</a>
     </div>
     <div class="products-grid">
-      <a href="products.html#neoprene-sheet" class="prod-card"><div class="prod-img"><img src="images/prod-sheet.jpg" alt="Neoprene Sheet" loading="lazy"></div><div class="prod-body"><div class="prod-name">Neoprene Sheet</div><div class="prod-spec">SBR / SCR / CR / NBR</div></div></a>
-      <a href="products.html#laminated" class="prod-card"><div class="prod-img"><img src="images/prod-laminated.jpg" alt="Laminated Fabric" loading="lazy"></div><div class="prod-body"><div class="prod-name">Laminated Fabric</div><div class="prod-spec">Multi-fabric bonding</div></div></a>
-      <a href="products.html#printed" class="prod-card"><div class="prod-img"><img src="images/prod-printed.jpg" alt="Printed Neoprene" loading="lazy"></div><div class="prod-body"><div class="prod-name">Printed Neoprene</div><div class="prod-spec">Custom full-color print</div></div></a>
-      <a href="products.html#embossed" class="prod-card"><div class="prod-img"><img src="images/prod-embossed.jpg" alt="Embossed Neoprene" loading="lazy"></div><div class="prod-body"><div class="prod-name">Embossed Neoprene</div><div class="prod-spec">Various textures</div></div></a>
-      <a href="products.html#jersey" class="prod-card"><div class="prod-img"><img src="images/prod-jersey.jpg" alt="Jersey Fabric" loading="lazy"></div><div class="prod-body"><div class="prod-name">Jersey Fabric</div><div class="prod-spec">Polyester / Nylon / Spandex</div></div></a>
-      <a href="products.html#perforated" class="prod-card"><div class="prod-img"><img src="images/prod-perforated.jpg" alt="Perforated Neoprene" loading="lazy"></div><div class="prod-body"><div class="prod-name">Perforated Neoprene</div><div class="prod-spec">Breathable & lightweight</div></div></a>
+      <a href="products.html#neoprene-sheet" class="prod-card"><div class="prod-img"><img src="images/prod-sheet.jpg" alt="Neoprene Sheet"></div><div class="prod-body"><div class="prod-name">Neoprene Sheet</div><div class="prod-spec">SBR / SCR / CR / NBR</div></div></a>
+      <a href="products.html#laminated" class="prod-card"><div class="prod-img"><img src="images/prod-laminated.jpg" alt="Laminated Fabric"></div><div class="prod-body"><div class="prod-name">Laminated Fabric</div><div class="prod-spec">Multi-fabric bonding</div></div></a>
+      <a href="products.html#printed" class="prod-card"><div class="prod-img"><img src="images/prod-printed.jpg" alt="Printed Neoprene"></div><div class="prod-body"><div class="prod-name">Printed Neoprene</div><div class="prod-spec">Custom full-color</div></div></a>
+      <a href="products.html#embossed" class="prod-card"><div class="prod-img"><img src="images/prod-embossed.jpg" alt="Embossed Neoprene"></div><div class="prod-body"><div class="prod-name">Embossed Neoprene</div><div class="prod-spec">Various textures</div></div></a>
+      <a href="products.html#jersey" class="prod-card"><div class="prod-img"><img src="images/prod-jersey.jpg" alt="Jersey Fabric"></div><div class="prod-body"><div class="prod-name">Jersey Fabric</div><div class="prod-spec">Poly/Nylon/Spandex</div></div></a>
+      <a href="products.html#perforated" class="prod-card"><div class="prod-img"><img src="images/prod-perforated.jpg" alt="Perforated Neoprene"></div><div class="prod-body"><div class="prod-name">Perforated Neoprene</div><div class="prod-spec">Breathable</div></div></a>
     </div>
   </div>
 </section>
 
-<!-- TRUSTED BY + CERTS -->
+<!-- TRUSTED BY -->
 <section class="trust">
   <div class="container trust-grid">
     <div>
@@ -1696,7 +1686,7 @@ ul {
       <p class="section-sub">Our materials meet EU, US, and international safety and quality standards.</p>
       <div class="cert-badges">
         <div class="cert-badge"><div class="cert-big" style="color:#0055A4">ISO</div><div class="cert-small">9001:2015</div></div>
-        <div class="cert-badge"><div class="cert-big" style="color:#3a7d44;font-size:12px;">OEKO-TEX®<br>100</div><div class="cert-small">Harmful substance tested</div></div>
+        <div class="cert-badge"><div class="cert-big" style="color:#3a7d44;font-size:12px;">OEKO-TEX® 100</div><div class="cert-small">Harmful substance tested</div></div>
         <div class="cert-badge"><div class="cert-big" style="color:#CC0000">SGS</div><div class="cert-small">Quality Verified</div></div>
         <div class="cert-badge"><div class="cert-big" style="font-size:14px;">REACH</div><div class="cert-small">EU Compliant</div></div>
       </div>
@@ -1708,18 +1698,17 @@ ul {
 <section class="cta-band">
   <div class="container cta-band-inner">
     <div>
-      <h2>Let's Start Your<br>Next Project</h2>
-      <p>Tell us your requirements. Get a professional quote within 24 hours.</p>
+      <h2>Let's Start Your Next Project</h2>
+      <p>Get a professional quote within 24 hours.</p>
     </div>
     <div class="cta-band-right">
       <div class="cta-band-btns">
-        <a href="contact.html?inquiry=quote" class="btn btn-white btn-lg">Get a Quote Now →</a>
-        <a href="contact.html?inquiry=sample" class="btn btn-ghost btn-lg">Free Sample Kit</a>
+        <a href="contact.html?inquiry=quote" class="btn btn-white btn-lg">Get a Quote →</a>
+        <a href="contact.html?inquiry=sample" class="btn btn-ghost btn-lg">Free Sample</a>
       </div>
       <div class="cta-contacts">
         <div class="cta-contact-item"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.7 10.5a19.79 19.79 0 01-3-8.59A2 2 0 012.68 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.69a16 16 0 006.4 6.4l1.06-1.06a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg><a href="tel:+8607698281508">+86 0769-8281-5056</a></div>
         <div class="cta-contact-item"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:sales@slyinsports.com">sales@slyinsports.com</a></div>
-        <div class="cta-contact-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Dongguan, China</div>
       </div>
     </div>
   </div>
@@ -1731,69 +1720,39 @@ ul {
     <div class="footer-grid">
       <div>
         <div class="footer-logo logo"><div class="logo-mark"><span>SY</span></div><div class="logo-info"><strong>Dongguan Siyin</strong><em>Sports Goods Co., Ltd.</em></div></div>
-        <p class="footer-about-text">Professional neoprene & laminated fabric manufacturer. 10+ years supplying premium materials to global sports, marine, and industrial brands.</p>
+        <p class="footer-about-text">Professional neoprene & laminated fabric manufacturer. 10+ years supplying premium materials to global brands.</p>
         <div class="footer-socials"><div class="social-btn">in</div><div class="social-btn">88</div><div class="social-btn">W</div></div>
       </div>
       <div><div class="footer-col-title">Products</div><ul class="footer-links"><li><a href="products.html#neoprene-sheet">Neoprene Sheet</a></li><li><a href="products.html#laminated">Laminated Fabric</a></li><li><a href="products.html#printed">Printed Neoprene</a></li><li><a href="products.html#embossed">Embossed Neoprene</a></li><li><a href="products.html#perforated">Perforated Neoprene</a></li></ul></div>
-      <div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a href="about.html">About Us</a></li><li><a href="about.html#factory">Factory Tour</a></li><li><a href="about.html#capabilities">Capabilities</a></li><li><a href="applications.html">Applications</a></li><li><a href="contact.html">Contact Us</a></li></ul></div>
-      <div><div class="footer-col-title">Contact Us</div><div class="footer-contact-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Dongguan City, China 523000</span></div><div class="footer-contact-item"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.7 10.5a19.79 19.79 0 01-3-8.59A2 2 0 012.68 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.69a16 16 0 006.4 6.4l1.06-1.06a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg><a href="tel:+8607698281508">+86 0769-8281-5056</a></div><div class="footer-contact-item"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:sales@slyinsports.com">sales@slyinsports.com</a></div></div>
+      <div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a href="about.html">About Us</a></li><li><a href="about.html#factory">Factory Tour</a></li><li><a href="about.html#capabilities">Capabilities</a></li><li><a href="applications.html">Applications</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><div class="footer-col-title">Contact</div><div class="footer-contact-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Dongguan, China</span></div><div class="footer-contact-item"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.7 10.5a19.79 19.79 0 01-3-8.59A2 2 0 012.68 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.69a16 16 0 006.4 6.4l1.06-1.06a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg><a href="tel:+8607698281508">+86 0769-8281-5056</a></div><div class="footer-contact-item"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:sales@slyinsports.com">sales@slyinsports.com</a></div></div>
     </div>
-    <div class="footer-bar"><p>© 2025 Dongguan Siyin Sports Goods Co., Ltd. All Rights Reserved.</p><div class="footer-bar-links"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">Sitemap</a></div></div>
+    <div class="footer-bar"><p>© 2025 Dongguan Siyin. All rights reserved.</p><div class="footer-bar-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Sitemap</a></div></div>
   </div>
 </footer>
 
-<!-- WhatsApp Float -->
-<a class="wa-float" href="https://wa.me/8613900000000?text=Hello,%20I'm%20interested%20in%20your%20neoprene%20products." target="_blank" title="Chat on WhatsApp">
+<a class="wa-float" href="https://wa.me/8613900000000" target="_blank">
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
 </a>
 
 <script src="main.js"></script>
 <script>
-// Applications 滑动功能
-function scrollApps(direction) {
-  const container = document.getElementById('appsRow');
-  if (!container) return;
-  const scrollAmount = 280;
-  container.scrollBy({
-    left: direction * scrollAmount,
-    behavior: 'smooth'
-  });
+function scrollApps(d) {
+  const c = document.getElementById('appsRow');
+  if(c) c.scrollBy({ left: d * 280, behavior: 'smooth' });
 }
-
-function scrollToSlide(index) {
-  const container = document.getElementById('appsRow');
-  if (!container) return;
-  const scrollAmount = index * 280;
-  container.scrollTo({
-    left: scrollAmount,
-    behavior: 'smooth'
-  });
+function animateStep(el) {
+  el.classList.remove('step-animate');
+  void el.offsetWidth;
+  el.classList.add('step-animate');
+  setTimeout(() => el.classList.remove('step-animate'), 300);
 }
-
-// 监听滚动更新小圆点
-if (document.getElementById('appsRow')) {
-  const appsRow = document.getElementById('appsRow');
-  appsRow.addEventListener('scroll', function() {
-    const scrollLeft = appsRow.scrollLeft;
-    const maxScroll = appsRow.scrollWidth - appsRow.clientWidth;
-    const totalDots = document.querySelectorAll('.scroll-dot').length;
-    if (maxScroll <= 0) return;
-    const index = Math.round((scrollLeft / maxScroll) * (totalDots - 1));
-    const dots = document.querySelectorAll('.scroll-dot');
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === index);
-    });
+if(document.getElementById('appsRow')) {
+  const row = document.getElementById('appsRow');
+  row.addEventListener('scroll', function() {
+    const idx = Math.round(row.scrollLeft / (row.scrollWidth - row.clientWidth) * 2);
+    document.querySelectorAll('.scroll-dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
   });
-}
-
-// Process 步骤点击动态效果
-function animateStep(element) {
-  element.classList.remove('step-animate');
-  void element.offsetWidth;
-  element.classList.add('step-animate');
-  setTimeout(() => {
-    element.classList.remove('step-animate');
-  }, 300);
 }
 </script>
 </body>
