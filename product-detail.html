@@ -36,18 +36,14 @@
 .pd-trust{display:flex;gap:16px;flex-wrap:wrap;padding:14px 0;border-top:1px solid var(--gray-bd);margin-top:8px}
 .pd-trust-item{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--mid)}
 .pd-trust-item svg{width:14px;height:14px;stroke:var(--green);fill:none;stroke-width:2.5}
-/* ── 合并后的详情区块（无标签页）── */
+/* 合并后的详情区块样式 */
 .details-block {
-  margin-bottom: 40px;
+  margin-top: 40px;
   border-top: 1px solid var(--gray-bd);
   padding-top: 40px;
 }
-.details-block:first-of-type {
-  border-top: none;
-  padding-top: 0;
-}
 .details-title {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 800;
   color: var(--text);
   margin-bottom: 20px;
@@ -60,9 +56,6 @@
   color: var(--mid);
   line-height: 1.8;
 }
-/* Video */
-.video-wrap{position:relative;padding-bottom:56.25%;height:0;border-radius:12px;overflow:hidden;max-width:720px}
-.video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
 /* Related */
 .related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .rel-card{border:1px solid var(--gray-bd);border-radius:10px;overflow:hidden;cursor:pointer;transition:all .22s;display:block;color:inherit}
@@ -72,6 +65,9 @@
 .rel-body{padding:12px 13px}
 .rel-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px}
 .rel-spec{font-size:11.5px;color:var(--muted)}
+/* Video */
+.video-wrap{position:relative;padding-bottom:56.25%;height:0;border-radius:12px;overflow:hidden}
+.video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
 /* Lightbox */
 .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9000;display:none;align-items:center;justify-content:center;padding:20px}
 .lightbox.open{display:flex}
@@ -81,45 +77,19 @@
 .lightbox-prev:hover,.lightbox-next:hover{background:rgba(255,255,255,.25)}
 .lightbox-prev{left:16px}
 .lightbox-next{right:16px}
-/* 返回按钮 */
-.back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--blue);
-  font-size: 13px;
-  font-weight: 500;
-  text-decoration: none;
-  margin-right: 20px;
-}
-.back-link:hover {
-  gap: 10px;
-}
-.back-link svg {
-  width: 14px;
-  height: 14px;
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 2.5;
-}
-.breadcrumb-wrapper {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-}
 </style>
 </head>
 <body>
 <div id="topbar"></div>
 <div id="nav"></div>
 
-<!-- Page hero (dynamic) -->
+<!-- Page hero (dynamic) - 添加了返回按钮 -->
 <div style="background:var(--gray-lt);padding:16px 0;border-bottom:1px solid var(--gray-bd)">
   <div class="container">
-    <div class="breadcrumb-wrapper">
+    <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
       <!-- 返回按钮 -->
-      <a href="javascript:history.back()" class="back-link">
-        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      <a href="javascript:history.back()" style="display:inline-flex;align-items:center;gap:6px;color:var(--blue);font-size:13px;font-weight:500;text-decoration:none">
+        <svg width="14" height="14" viewBox="0 0 24 24" style="stroke:currentColor;fill:none;stroke-width:2.5"><polyline points="15 18 9 12 15 6"/></svg>
         Back
       </a>
       <div class="breadcrumb" id="pdBreadcrumb">
@@ -139,21 +109,21 @@
       <div style="padding:48px;text-align:center;color:var(--muted)" id="pdLoading">Loading product…</div>
     </div>
 
-    <!-- 合并后的详情区块（无标签页） -->
+    <!-- 合并后的详情区块（无标签页，不用点击） -->
     <div id="detailsContainer" style="display:none">
-      <!-- Full Description 区块 -->
+      <!-- 区块1：Full Description -->
       <div class="details-block">
-        <div class="details-title">📄 Product Description</div>
+        <div class="details-title">📄 Full Description</div>
         <div class="details-content" id="panelDesc"></div>
       </div>
 
-      <!-- Technical Specs 区块 -->
+      <!-- 区块2：Technical Specs -->
       <div class="details-block">
         <div class="details-title">🔧 Technical Specifications</div>
         <div class="details-content" id="panelSpecs"></div>
       </div>
 
-      <!-- Video / Media 区块（如果没有视频则不显示） -->
+      <!-- 区块3：Video / Media（没有视频则不显示） -->
       <div class="details-block" id="videoBlock" style="display:none">
         <div class="details-title">🎬 Video & Media</div>
         <div class="details-content" id="panelVideo"></div>
@@ -271,7 +241,7 @@ function loadProduct(){
         </div>`:''}
       ${allSpecs.length?`
         <table class="pd-spec-table">
-          ${allSpecs.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('')}
+          ${allSpecs.map(([k,v])=>`<td>${k}</td><td style="color:var(--mid)">${v}</td>`).join('')}
         </table>`:''}
       <div class="pd-actions">
         <a href="contact.html?t=quote&product=${encodeURIComponent(p.name)}" class="btn btn-blue btn-lg">
@@ -293,7 +263,7 @@ function loadProduct(){
 
   lightboxImgs = imgs;
 
-  // 显示详情容器
+  // 显示详情容器（合并后的区块）
   document.getElementById('detailsContainer').style.display = 'block';
 
   // Full description
@@ -301,15 +271,14 @@ function loadProduct(){
     ? `<div style="font-size:15px;color:var(--mid);line-height:1.9;max-width:800px">${p.desc_full.replace(/\n/g,'<br>')}</div>`
     : `<p style="color:var(--muted);font-size:14px">No detailed description added yet. <a href="contact.html" style="color:var(--blue)">Contact us</a> for full product details.</p>`;
 
-  // Specs tab
+  // Technical Specs
   document.getElementById('panelSpecs').innerHTML = allSpecs.length
-    ? `<div style="max-width:600px"><table class="pd-spec-table">${allSpecs.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('')}</table></div>`
+    ? `<div style="max-width:600px"><table class="pd-spec-table">${allSpecs.map(([k,v])=>`</td><td style="font-weight:600;width:42%">${k}</td><td style="color:var(--mid)">${v}</td>`).join('')}</table></div>`
     : `<p style="color:var(--muted);font-size:14px">Contact us for detailed technical specifications.</p>`;
 
-  // Video tab - 如果有视频才显示区块
+  // Video 区块 - 有视频才显示，没有就隐藏整个区块
   if (p.video && p.video.trim()) {
-    const videoBlock = document.getElementById('videoBlock');
-    videoBlock.style.display = 'block';
+    document.getElementById('videoBlock').style.display = 'block';
     document.getElementById('panelVideo').innerHTML = `<div style="max-width:720px"><div class="video-wrap"><iframe src="${getYouTubeEmbed(p.video)}" allowfullscreen></iframe></div></div>`;
   } else {
     document.getElementById('videoBlock').style.display = 'none';
