@@ -4,7 +4,7 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Products – Neoprene & Laminated Fabric | Siyin Sports Goods</title>
 <meta name="description" content="Browse Siyin's full range of neoprene and laminated fabric products: SBR, SCR, CR neoprene, polyester/spandex/lycra lamination, wetsuit material, bottle sleeve material, footwear material and more.">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="style.css">
 <style>
 /* ── Page layout ── */
 .prods-wrap{display:flex;min-height:60vh;gap:0}
@@ -94,7 +94,7 @@
 .pcs-text strong{display:block;font-size:15px;font-weight:700;color:var(--blue);margin-bottom:3px}
 .pcs-text span{font-size:13px;color:var(--mid)}
 
-/* ── Category description cards (shown when a parent cat is selected) ── */
+/* ── Category description cards ── */
 .cat-intro{background:linear-gradient(135deg,var(--blue) 0%,var(--blue-lt) 100%);border-radius:12px;padding:24px 28px;margin-bottom:24px;display:flex;align-items:center;gap:20px}
 .cat-intro-icon{font-size:48px;flex-shrink:0}
 .cat-intro h2{font-size:20px;font-weight:800;color:#fff;margin-bottom:6px}
@@ -136,7 +136,7 @@
         </div>
         <a href="contact.html?t=sample" class="btn btn-blue btn-sm">Request Free Sample →</a>
       </div>
-      <!-- Subcategory chips (shown when parent selected) -->
+      <!-- Subcategory chips -->
       <div class="subcats-chips" id="subcatChips" style="display:none"></div>
       <!-- Toolbar -->
       <div class="pm-toolbar">
@@ -154,7 +154,7 @@
         <div class="pm-count" id="pmCount"></div>
       </div>
     </div>
-    <!-- Category intro (shown for parent cats) -->
+    <!-- Category intro -->
     <div id="catIntroBox" style="display:none"></div>
     <!-- Product grid -->
     <div class="pg" id="prodGrid"></div>
@@ -173,12 +173,28 @@
 </div>
 
 <div id="footer"></div>
-<script src="js/components.js"></script>
+<script src="components.js"></script>
 <script>
-/* ── DB helper ── */
-const DB={get(k){try{return JSON.parse(localStorage.getItem('siyin_'+k)||'null');}catch(e){return null;}}};
+// ============================================
+// DB Helper - 统一数据访问
+// ============================================
+const DB = {
+  get(key) {
+    try {
+      return JSON.parse(localStorage.getItem('siyin_' + key) || 'null');
+    } catch(e) {
+      return null;
+    }
+  },
+  set(key, val) {
+    localStorage.setItem('siyin_' + key, JSON.stringify(val));
+  }
+};
 
-const DEFAULT_CATS=[
+// ============================================
+// 默认分类数据
+// ============================================
+const DEFAULT_CATS = [
   {id:'c1',name:'Neoprene Fabric',icon:'🧴',parent:'root',order:1,desc:'Raw neoprene foam in SBR, SCR and CR grades. Closed-cell structure, consistent density, available 1.5–12mm.'},
   {id:'c1a',name:'SBR Neoprene',icon:'⚫',parent:'c1',order:1},
   {id:'c1b',name:'SCR Neoprene',icon:'⚫',parent:'c1',order:2},
@@ -227,172 +243,197 @@ const DEFAULT_CATS=[
   {id:'c7',name:'Best Sellers',icon:'⭐',parent:'root',order:7,desc:'Our most popular neoprene materials — trusted by buyers in 30+ countries.'},
 ];
 
-const FEAT_LABELS={waterproof:'💧 Waterproof',stretch:'↔️ Stretch',thermal:'🌡️ Thermal',
-  shock:'🛡️ Shock Absorb',breathable:'🌬️ Breathable',embossed:'🔲 Embossed',
-  printed:'🖨️ Printed',oem:'🏭 OEM',lowmoq:'📦 Low MOQ',fastsample:'⚡ Fast Sample',
-  certified:'✅ SGS',eco:'🌿 Eco'};
+// 初始化分类数据（如果没有）
+if (!DB.get('categories')) {
+  DB.set('categories', DEFAULT_CATS);
+}
 
-let selCatId='__all__';
+const FEAT_LABELS = {
+  waterproof:'💧 Waterproof', stretch:'↔️ Stretch', thermal:'🌡️ Thermal',
+  shock:'🛡️ Shock Absorb', breathable:'🌬️ Breathable', embossed:'🔲 Embossed',
+  printed:'🖨️ Printed', oem:'🏭 OEM', lowmoq:'📦 Low MOQ', fastsample:'⚡ Fast Sample',
+  certified:'✅ SGS', eco:'🌿 Eco'
+};
 
-function getCats(){return DB.get('categories')||DEFAULT_CATS;}
-function getProds(){return DB.get('products')||[];}
-function catById(id){return getCats().find(c=>c.id===id);}
-function catName(id){const c=catById(id);return c?c.name:'';}
-function childrenOf(pid){return getCats().filter(c=>c.parent===pid).sort((a,b)=>a.order-b.order);}
-function allDesc(pid){const d=childrenOf(pid);let all=[...d];d.forEach(c=>{all=all.concat(allDesc(c.id));});return all;}
-function countCat(cid){const ps=getProds();const ids=new Set([cid,...allDesc(cid).map(c=>c.id)]);return ps.filter(p=>p.status!=='draft'&&(ids.has(p.category)||ids.has(p.subcategory))).length;}
+let selCatId = '__all__';
+
+function getCats() { return DB.get('categories') || DEFAULT_CATS; }
+function getProds() { return DB.get('products') || []; }
+function catById(id) { return getCats().find(c => c.id === id); }
+function catName(id) { const c = catById(id); return c ? c.name : ''; }
+function childrenOf(pid) { return getCats().filter(c => c.parent === pid).sort((a,b) => a.order - b.order); }
+function allDesc(pid) { 
+  const d = childrenOf(pid);
+  let all = [...d];
+  d.forEach(c => { all = all.concat(allDesc(c.id)); });
+  return all;
+}
+function countCat(cid) {
+  const ps = getProds();
+  const ids = new Set([cid, ...allDesc(cid).map(c => c.id)]);
+  return ps.filter(p => p.status !== 'draft' && (ids.has(p.category) || ids.has(p.subcategory))).length;
+}
+
+// 转义HTML
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/[&<>]/g, function(m) {
+    if (m === '&') return '&amp;';
+    if (m === '<') return '&lt;';
+    if (m === '>') return '&gt;';
+    return m;
+  });
+}
 
 /* ── Sidebar render ── */
-function renderSidebar(){
-  const cats=getCats(); const roots=childrenOf('root');
-  const total=getProds().filter(p=>p.status!=='draft').length;
-  const allOn=selCatId==='__all__';
+function renderSidebar() {
+  const cats = getCats();
+  const roots = childrenOf('root');
+  const total = getProds().filter(p => p.status !== 'draft').length;
+  const allOn = selCatId === '__all__';
 
-  let html=`<div class="cs-title">Categories</div>
-    <div class="cs-all${allOn?' on':''}" onclick="selCat('__all__')">
+  let html = `<div class="cs-title">Categories</div>
+    <div class="cs-all${allOn ? ' on' : ''}" onclick="selCat('__all__')">
       <span style="font-size:14px">📋</span>
       <span class="cs-all-name">All Products</span>
       <span class="cs-all-cnt">${total}</span>
     </div>
     <div style="height:8px"></div>`;
 
-  roots.forEach(root=>{
-    const kids=childrenOf(root.id);
-    const cnt=countCat(root.id);
-    const isRootSel=selCatId===root.id;
-    const isAncSel=allDesc(root.id).some(c=>c.id===selCatId);
-    const open=isRootSel||isAncSel;
+  roots.forEach(root => {
+    const kids = childrenOf(root.id);
+    const cnt = countCat(root.id);
+    const isRootSel = selCatId === root.id;
+    const isAncSel = allDesc(root.id).some(c => c.id === selCatId);
+    const open = isRootSel || isAncSel;
 
-    html+=`<div class="cs-group">
-      <div class="cs-parent${isRootSel?' on':''}" onclick="selCat('${root.id}')">
-        ${kids.length?`<span class="cp-arrow${open?' open':''}" onclick="toggleCat(event,'${root.id}')">▶</span>`:'<span class="cp-arrow hide">▶</span>'}
-        <span class="cp-icon">${root.icon||'📁'}</span>
+    html += `<div class="cs-group">
+      <div class="cs-parent${isRootSel ? ' on' : ''}" onclick="selCat('${root.id}')">
+        ${kids.length ? `<span class="cp-arrow${open ? ' open' : ''}" onclick="toggleCat(event,'${root.id}')">▶</span>` : '<span class="cp-arrow hide">▶</span>'}
+        <span class="cp-icon">${root.icon || '📁'}</span>
         <span class="cp-name">${root.name}</span>
-        ${cnt>0?`<span class="cp-cnt">${cnt}</span>`:''}
+        ${cnt > 0 ? `<span class="cp-cnt">${cnt}</span>` : ''}
       </div>
-      ${kids.length?`<div class="cs-children${open?' open':''}" id="ch_${root.id}">
-        ${kids.map(child=>{
-          const childCnt=countCat(child.id);
-          const isSel=selCatId===child.id;
-          return `<div class="cs-child${isSel?' on':''}" onclick="selCat('${child.id}')">
-            <span class="cc-icon">${child.icon||'•'}</span>
+      ${kids.length ? `<div class="cs-children${open ? ' open' : ''}" id="ch_${root.id}">
+        ${kids.map(child => {
+          const childCnt = countCat(child.id);
+          const isSel = selCatId === child.id;
+          return `<div class="cs-child${isSel ? ' on' : ''}" onclick="selCat('${child.id}')">
+            <span class="cc-icon">${child.icon || '•'}</span>
             <span class="cc-name">${child.name}</span>
-            ${childCnt>0?`<span class="cc-cnt">${childCnt}</span>`:''}
+            ${childCnt > 0 ? `<span class="cc-cnt">${childCnt}</span>` : ''}
           </div>`;
         }).join('')}
-      </div>`:''}
+      </div>` : ''}
     </div>`;
   });
 
-  document.getElementById('catsSidebar').innerHTML=html;
+  document.getElementById('catsSidebar').innerHTML = html;
 }
 
-function toggleCat(e,id){
+function toggleCat(e, id) {
   e.stopPropagation();
-  const el=document.getElementById('ch_'+id);
-  const arrow=el?.previousElementSibling?.querySelector('.cp-arrow');
-  if(el){el.classList.toggle('open');arrow?.classList.toggle('open');}
+  const el = document.getElementById('ch_' + id);
+  const arrow = el?.previousElementSibling?.querySelector('.cp-arrow');
+  if (el) { el.classList.toggle('open'); arrow?.classList.toggle('open'); }
 }
 
 /* ── Breadcrumb + title update ── */
-function updateHead(){
-  const cat=catById(selCatId);
-  const isAll=selCatId==='__all__';
+function updateHead() {
+  const cat = catById(selCatId);
+  const isAll = selCatId === '__all__';
 
-  document.getElementById('catTitle').textContent=isAll?'All Products':(cat?.name||'Products');
-  document.getElementById('catDesc').textContent=isAll?'Full range of neoprene and laminated fabric products.':(cat?.desc||'');
-  document.getElementById('heroTitle').textContent=isAll?'Our Products':(cat?.name||'Products');
-  document.getElementById('bcrumb').textContent=isAll?'Products':(cat?.name||'Products');
+  document.getElementById('catTitle').textContent = isAll ? 'All Products' : (cat?.name || 'Products');
+  document.getElementById('catDesc').textContent = isAll ? 'Full range of neoprene and laminated fabric products.' : (cat?.desc || '');
+  document.getElementById('heroTitle').textContent = isAll ? 'Our Products' : (cat?.name || 'Products');
+  document.getElementById('bcrumb').textContent = isAll ? 'Products' : (cat?.name || 'Products');
 
-  // Sub-category chips (only for parent cats)
-  const kids=isAll?[]:childrenOf(selCatId);
-  const chipsEl=document.getElementById('subcatChips');
-  if(!isAll&&kids.length){
-    chipsEl.style.display='flex';
-    chipsEl.innerHTML=kids.map(k=>`
-      <div class="subcat-chip${selCatId===k.id?' on':''}" onclick="selCat('${k.id}')">
+  const kids = isAll ? [] : childrenOf(selCatId);
+  const chipsEl = document.getElementById('subcatChips');
+  if (!isAll && kids.length) {
+    chipsEl.style.display = 'flex';
+    chipsEl.innerHTML = kids.map(k => `
+      <div class="subcat-chip${selCatId === k.id ? ' on' : ''}" onclick="selCat('${k.id}')">
         ${k.icon} ${k.name}
       </div>`).join('');
-  } else chipsEl.style.display='none';
+  } else chipsEl.style.display = 'none';
 
-  // Category intro box (for parent cats with desc)
-  const introEl=document.getElementById('catIntroBox');
-  if(!isAll&&cat&&cat.parent==='root'&&cat.desc&&kids.length){
-    introEl.style.display='block';
-    introEl.innerHTML=`<div class="cat-intro">
-      <div class="cat-intro-icon">${cat.icon||'📦'}</div>
+  const introEl = document.getElementById('catIntroBox');
+  if (!isAll && cat && cat.parent === 'root' && cat.desc && kids.length) {
+    introEl.style.display = 'block';
+    introEl.innerHTML = `<div class="cat-intro">
+      <div class="cat-intro-icon">${cat.icon || '📦'}</div>
       <div>
         <h2>${cat.name}</h2>
         <p>${cat.desc}</p>
       </div>
     </div>`;
-  } else introEl.style.display='none';
+  } else introEl.style.display = 'none';
 }
 
 /* ── Products render ── */
-function getFiltered(){
-  const prods=getProds().filter(p=>p.status!=='draft');
-  const cats=getCats();
-  const q=(document.getElementById('srch')?.value||'').toLowerCase();
-  const sort=document.getElementById('sortSel')?.value||'default';
+function getFiltered() {
+  const prods = getProds().filter(p => p.status !== 'draft');
+  const q = (document.getElementById('srch')?.value || '').toLowerCase();
+  const sort = document.getElementById('sortSel')?.value || 'default';
 
-  let list=prods.filter(p=>{
-    if(selCatId!=='__all__'){
-      const valid=new Set([selCatId,...allDesc(selCatId).map(c=>c.id)]);
-      if(!valid.has(p.category)&&!valid.has(p.subcategory)) return false;
+  let list = prods.filter(p => {
+    if (selCatId !== '__all__') {
+      const valid = new Set([selCatId, ...allDesc(selCatId).map(c => c.id)]);
+      if (!valid.has(p.category) && !valid.has(p.subcategory)) return false;
     }
-    if(q){
-      const hay=[p.name,p.name_cn,p.desc,p.grade,p.fabric,p.applications].join(' ').toLowerCase();
-      if(!hay.includes(q)) return false;
+    if (q) {
+      const hay = [p.name, p.name_cn, p.desc, p.grade, p.fabric, p.applications].join(' ').toLowerCase();
+      if (!hay.includes(q)) return false;
     }
     return true;
   });
 
-  if(sort==='name') list.sort((a,b)=>a.name.localeCompare(b.name));
-  else if(sort==='feat') list.sort((a,b)=>(b.featured?1:0)-(a.featured?1:0));
+  if (sort === 'name') list.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+  else if (sort === 'feat') list.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
 
   return list;
 }
 
-function renderProds(){
-  const prods=getFiltered();
-  document.getElementById('pmCount').textContent=`${prods.length} product${prods.length!==1?'s':''}`;
+function renderProds() {
+  const prods = getFiltered();
+  document.getElementById('pmCount').textContent = `${prods.length} product${prods.length !== 1 ? 's' : ''}`;
 
-  if(!prods.length){
-    document.getElementById('prodGrid').innerHTML=`
+  if (!prods.length) {
+    document.getElementById('prodGrid').innerHTML = `
       <div class="prods-empty">
         <div class="ei">📦</div>
         <div class="et">No products in this category yet</div>
         <p style="font-size:13px;margin-bottom:16px">Check back soon, or contact us with your requirements.</p>
         <a href="contact.html" class="btn btn-blue">Send Inquiry →</a>
       </div>`;
-    document.getElementById('ctaStrip').style.display='none';
+    document.getElementById('ctaStrip').style.display = 'none';
     return;
   }
-  document.getElementById('ctaStrip').style.display='flex';
+  document.getElementById('ctaStrip').style.display = 'flex';
 
-  document.getElementById('prodGrid').innerHTML=prods.map(p=>{
-    const img=p.images?.[0];
-    const cat=catName(p.category);
-    const feats=(p.features||[]).slice(0,3).map(f=>FEAT_LABELS[f]).filter(Boolean);
-    const specs=[[p.grade],[p.thickness],[p.fabric]].map(x=>x[0]).filter(Boolean);
-    const tags=[];
-    if(p.featured) tags.push({cls:'hot',lbl:'⭐ Best Seller'});
-    if((p.features||[]).includes('oem')) tags.push({cls:'oem',lbl:'OEM'});
+  document.getElementById('prodGrid').innerHTML = prods.map(p => {
+    const img = p.images && p.images[0];
+    const cat = catName(p.category);
+    const feats = (p.features || []).slice(0, 3).map(f => FEAT_LABELS[f]).filter(Boolean);
+    const specs = [p.grade, p.thickness, p.fabric].filter(Boolean);
+    const tags = [];
+    if (p.featured) tags.push({ cls: 'hot', lbl: '⭐ Best Seller' });
+    if ((p.features || []).includes('oem')) tags.push({ cls: 'oem', lbl: 'OEM' });
 
     return `<a class="pc" href="product-detail.html?id=${p.id}">
       <div class="pc-img">
-        ${img?`<img src="${img}" alt="${p.name}">`:'📦'}
-        ${tags.length?`<div class="pc-badge">${tags.map(t=>`<span class="pc-tag ${t.cls}">${t.lbl}</span>`).join('')}</div>`:''}
+        ${img ? `<img src="${escapeHtml(img)}" alt="${escapeHtml(p.name)}" onerror="this.parentElement.innerHTML='📦'">` : '📦'}
+        ${tags.length ? `<div class="pc-badge">${tags.map(t => `<span class="pc-tag ${t.cls}">${t.lbl}</span>`).join('')}</div>` : ''}
       </div>
       <div class="pc-body">
-        <div class="pc-cat">${cat}</div>
-        <div class="pc-name">${p.name}</div>
-        ${p.name_cn?`<div class="pc-cn">${p.name_cn}</div>`:''}
-        ${specs.length?`<div class="pc-spec">${specs.map(s=>`<span class="pc-spec-item">${s}</span>`).join('')}</div>`:''}
-        ${feats.length?`<div class="pc-feats">${feats.map(f=>`<span class="pc-feat">${f}</span>`).join('')}</div>`:''}
+        <div class="pc-cat">${escapeHtml(cat)}</div>
+        <div class="pc-name">${escapeHtml(p.name)}</div>
+        ${p.name_cn ? `<div class="pc-cn">${escapeHtml(p.name_cn)}</div>` : ''}
+        ${specs.length ? `<div class="pc-spec">${specs.map(s => `<span class="pc-spec-item">${escapeHtml(s)}</span>`).join('')}</div>` : ''}
+        ${feats.length ? `<div class="pc-feats">${feats.map(f => `<span class="pc-feat">${f}</span>`).join('')}</div>` : ''}
         <div class="pc-foot">
-          <div class="pc-moq">${p.moq?`MOQ: <strong>${p.moq}</strong>`:''}</div>
+          <div class="pc-moq">${p.moq ? `MOQ: <strong>${escapeHtml(p.moq)}</strong>` : ''}</div>
           <div class="pc-cta">View Details <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
         </div>
       </div>
@@ -400,27 +441,26 @@ function renderProds(){
   }).join('');
 }
 
-function selCat(id){
-  selCatId=id;
+function selCat(id) {
+  selCatId = id;
   renderSidebar();
   updateHead();
   renderProds();
-  // auto-expand tree when child selected
-  if(id!=='__all__'){
-    const cat=catById(id);
-    if(cat&&cat.parent!=='root'){
-      const el=document.getElementById('ch_'+cat.parent);
-      const arrow=el?.previousElementSibling?.querySelector('.cp-arrow');
-      if(el){el.classList.add('open');arrow?.classList.add('open');}
+  if (id !== '__all__') {
+    const cat = catById(id);
+    if (cat && cat.parent !== 'root') {
+      const el = document.getElementById('ch_' + cat.parent);
+      const arrow = el?.previousElementSibling?.querySelector('.cp-arrow');
+      if (el) { el.classList.add('open'); arrow?.classList.add('open'); }
     }
   }
 }
 
-// Pre-select from URL param
-const urlCat=new URLSearchParams(location.search).get('cat');
-if(urlCat) selCatId=urlCat;
+// 从URL参数获取分类
+const urlCat = new URLSearchParams(location.search).get('cat');
+if (urlCat) selCatId = urlCat;
 
-document.addEventListener('DOMContentLoaded',()=>{
+document.addEventListener('DOMContentLoaded', () => {
   renderSidebar();
   updateHead();
   renderProds();
