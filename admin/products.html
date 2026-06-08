@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Product & Category Management – Siyin Admin</title>
+<link rel="stylesheet" href="admin.css">
+<style>
+/* ── 整体2栏布局 ── */
+.pm-wrap{display:flex;min-height:calc(100vh - 60px)}
+.cat-panel{width:272px;flex-shrink:0;background:#fff;border-right:1px solid var(--bd);display:flex;flex-direction:column;position:sticky;top:60px;height:calc(100vh - 60px);overflow:hidden}
+.cat-panel-head{padding:14px 16px 10px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.cat-panel-title{font-size:13px;font-weight:700;color:var(--text)}
+.cat-panel-body{flex:1;overflow-y:auto;padding:8px 0}
+.cat-panel-body::-webkit-scrollbar{width:3px}
+.cat-panel-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.1);border-radius:2px}
+.prod-panel{flex:1;padding:22px;overflow:auto;min-width:0}
+
+/* ── Category Tree ── */
+.cat-all{display:flex;align-items:center;gap:9px;padding:9px 14px;margin:0 8px 4px;border-radius:8px;cursor:pointer;transition:background .15s;user-select:none}
+.cat-all.sel{background:var(--blue);color:#fff}
+.cat-all:not(.sel):hover{background:var(--bg)}
+.cat-all-lbl{font-size:13px;font-weight:600;flex:1}
+.cat-all-cnt{font-size:11px;font-weight:600;padding:1px 7px;border-radius:10px}
+.cat-all.sel .cat-all-cnt{background:rgba(255,255,255,.2);color:#fff}
+.cat-all:not(.sel) .cat-all-cnt{background:var(--bg);color:var(--muted)}
+
+.cat-item{padding:0 8px}
+.cat-row{display:flex;align-items:center;gap:7px;padding:7px 8px;border-radius:7px;cursor:pointer;transition:background .15s;user-select:none;position:relative}
+.cat-row:hover{background:var(--bg)}
+.cat-row.sel{background:var(--blue-bg)}
+.cat-row.sel .cr-name{color:var(--blue);font-weight:600}
+.cr-arrow{width:15px;height:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--muted);font-size:9px;transition:transform .18s}
+.cr-arrow.open{transform:rotate(90deg)}
+.cr-arrow.hide{opacity:0;pointer-events:none}
+.cr-icon{font-size:13px;flex-shrink:0}
+.cr-name{font-size:13px;color:var(--text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cr-cnt{font-size:10.5px;color:var(--muted);background:var(--bg);padding:1px 6px;border-radius:10px;flex-shrink:0}
+.cr-btns{display:none;gap:2px;flex-shrink:0}
+.cat-row:hover .cr-btns{display:flex}
+.cr-btn{width:20px;height:20px;border:none;background:transparent;border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;padding:0;transition:background .15s}
+.cr-btn:hover{background:var(--bd)}
+.cat-children{padding-left:18px;display:none}
+.cat-children.open{display:block}
+
+/* ── Product toolbar ── */
+.pt-bar{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.pt-search{flex:1;min-width:180px;position:relative}
+.pt-search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:14px;height:14px;stroke:var(--muted);fill:none;stroke-width:2;pointer-events:none}
+.pt-search input{width:100%;padding:8px 10px 8px 32px;border:1.5px solid var(--bd);border-radius:7px;font-size:13px;outline:none;font-family:var(--f);transition:border-color .2s}
+.pt-search input:focus{border-color:var(--blue)}
+.view-btns{display:flex;gap:3px}
+.vbtn{width:30px;height:30px;border:1.5px solid var(--bd);background:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;color:var(--muted)}
+.vbtn.on,.vbtn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-bg)}
+.vbtn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+.pt-info{font-size:12.5px;color:var(--muted);margin-left:auto;white-space:nowrap}
+
+/* ── Grid view ── */
+.pg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.pg-card{background:#fff;border:1px solid var(--bd);border-radius:10px;overflow:hidden;transition:all .2s;cursor:pointer}
+.pg-card:hover{box-shadow:0 5px 20px rgba(0,0,0,.1);transform:translateY(-2px)}
+.pg-thumb{height:150px;background:var(--bg);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:44px}
+.pg-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pg-hover{position:absolute;inset:0;background:rgba(0,0,0,0);display:flex;align-items:center;justify-content:center;gap:6px;transition:background .2s}
+.pg-card:hover .pg-hover{background:rgba(0,0,0,.38)}
+.pg-hover-btn{background:#fff;border:none;border-radius:6px;padding:6px 11px;font-size:11.5px;font-weight:600;cursor:pointer;opacity:0;transform:translateY(5px);transition:all .2s;font-family:var(--f)}
+.pg-card:hover .pg-hover-btn{opacity:1;transform:translateY(0)}
+.pg-body{padding:11px 13px}
+.pg-cat{font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.pg-name{font-size:13.5px;font-weight:700;color:var(--text);margin-bottom:3px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pg-spec{font-size:11.5px;color:var(--muted);margin-bottom:8px}
+.pg-foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--bd);padding-top:8px}
+.pg-status{font-size:11px;font-weight:600;display:flex;align-items:center;gap:3px}
+.pg-status::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor}
+.pg-status.on{color:var(--green)} .pg-status.off{color:var(--muted)}
+.pg-acts{display:flex;gap:3px}
+.ib{width:26px;height:26px;border:1px solid var(--bd);background:#fff;border-radius:5px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;color:var(--mid)}
+.ib:hover.e{border-color:var(--blue);color:var(--blue);background:var(--blue-bg)}
+.ib:hover.d{border-color:var(--red);color:var(--red);background:#fef2f2}
+.ib svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* ── List view ── */
+.pg-list{display:none}
+.pg-list.on{display:block}
+.pg-grid.on{display:grid}
+.pg-grid.off{display:none}
+
+/* ── Empty ── */
+.pm-empty{padding:56px 16px;text-align:center;color:var(--muted)}
+.pm-empty .ei{font-size:48px;margin-bottom:12px}
+.pm-empty .et{font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px}
+
+/* ── Product Modal ── */
+.pm-modal .modal{max-width:800px}
+.tab-bar{display:flex;border-bottom:2px solid var(--bd);margin-bottom:22px}
+.tab-item{padding:8px 18px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .18s;white-space:nowrap}
+.tab-item.on{color:var(--blue);border-color:var(--blue)}
+.tab-pane{display:none}
+.tab-pane.on{display:block}
+/* Image grid */
+.img-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:6px}
+.img-slot{aspect-ratio:1;border-radius:8px;border:2px dashed var(--bd);background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .18s;position:relative;overflow:hidden;font-size:10px;color:var(--muted);gap:4px}
+.img-slot:hover{border-color:var(--blue);background:var(--blue-bg)}
+.img-slot.filled{border-style:solid;border-color:var(--bd)}
+.img-slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.img-slot .del-img{position:absolute;top:3px;right:3px;width:18px;height:18px;background:rgba(0,0,0,.6);border-radius:50%;display:none;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:11px;z-index:2;border:none}
+.img-slot.filled:hover .del-img{display:flex}
+.img-slot .add-lbl{font-size:9.5px;color:var(--muted);text-align:center;line-height:1.3}
+.img-slot-add{font-size:22px;line-height:1}
+/* Feature chips */
+.feat-wrap{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px}
+.feat-chip{display:flex;align-items:center;gap:5px;padding:5px 11px;border-radius:20px;border:1.5px solid var(--bd);font-size:12px;font-weight:500;cursor:pointer;transition:all .18s;user-select:none}
+.feat-chip:hover{border-color:var(--blue)}
+.feat-chip.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+/* Spec rows */
+.spec-list{display:flex;flex-direction:column;gap:7px;margin-top:6px}
+.spec-row{display:grid;grid-template-columns:1fr 1fr 30px;gap:7px;align-items:center}
+.spec-del{width:28px;height:28px;border:1px solid var(--bd);background:#fff;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--red);font-size:14px;transition:background .15s;flex-shrink:0}
+.spec-del:hover{background:#fef2f2}
+
+/* ── Cat Manager Modal ── */
+.cat-mgr-list{display:flex;flex-direction:column;gap:5px;max-height:380px;overflow-y:auto;padding:2px}
+.cml-item{display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--bg);border:1px solid var(--bd);border-radius:8px}
+.cml-handle{color:var(--muted);font-size:14px;cursor:grab;flex-shrink:0}
+.cml-icon{font-size:14px;flex-shrink:0}
+.cml-name{flex:1;font-size:13px;font-weight:500;color:var(--text)}
+.cml-parent{font-size:11px;color:var(--muted);background:#fff;padding:1px 7px;border-radius:8px;border:1px solid var(--bd);flex-shrink:0}
+.cml-del{width:26px;height:26px;border:1px solid var(--bd);background:#fff;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--red);font-size:13px;transition:all .15s;flex-shrink:0;border:none}
+.cml-del:hover{background:#fef2f2}
+</style>
+</head>
+<body>
+<div class="admin-shell">
+<div class="sidebar" id="sidebar"></div>
+<div class="main-area">
+
+<!-- Topbar -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div>
+      <div class="page-title" id="ptitle">Products</div>
+      <div class="page-subtitle" id="psubtitle">All Products</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <button class="btn btn-ghost btn-sm" onclick="openCatMgr()">
+      <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      Manage Categories
+    </button>
+    <button class="btn btn-primary" onclick="openProdForm(null)">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Add Product
+    </button>
+  </div>
+</div>
+
+<!-- Main layout -->
+<div class="pm-wrap">
+
+  <!-- Left: Category tree -->
+  <div class="cat-panel">
+    <div class="cat-panel-head">
+      <div class="cat-panel-title">📂 Categories</div>
+      <button class="btn btn-primary btn-sm" onclick="openAddCat('root')" title="Add top-level category" style="padding:5px 9px">
+        <svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:#fff;fill:none;stroke-width:3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+    </div>
+    <div class="cat-panel-body">
+      <div class="cat-all sel" id="catAllRow" onclick="selCat('__all__')">
+        <span style="font-size:15px">📋</span>
+        <span class="cat-all-lbl">All Products</span>
+        <span class="cat-all-cnt" id="catAllCnt">0</span>
+      </div>
+      <div id="catTree"></div>
+    </div>
+  </div>
+
+  <!-- Right: Products -->
+  <div class="prod-panel">
+    <div class="pt-bar">
+      <div class="pt-search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="srch" placeholder="Search products…" oninput="renderProds()">
+      </div>
+      <select class="form-select" id="sfilt" onchange="renderProds()" style="width:130px">
+        <option value="">All Status</option>
+        <option value="active">Active</option>
+        <option value="draft">Draft</option>
+      </select>
+      <div class="view-btns">
+        <div class="vbtn on" id="vg" onclick="setView('grid')" title="Grid">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </div>
+        <div class="vbtn" id="vl" onclick="setView('list')" title="List">
+          <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/></svg>
+        </div>
+      </div>
+      <div class="pt-info" id="ptInfo"></div>
+    </div>
+    <div class="pg-grid on" id="pgGrid"></div>
+    <div class="pg-list" id="pgList">
+      <div class="tbl-wrap">
+        <table><thead><tr>
+          <th style="width:52px"></th><th>Product</th><th>Category</th>
+          <th>Grade / Thickness</th><th>Fabric</th><th>MOQ</th>
+          <th>Status</th><th>Featured</th><th style="width:110px">Actions</th>
+        </tr></thead><tbody id="pgListBody"></tbody></table>
+      </div>
+    </div>
+    <div class="pm-empty" id="pmEmpty" style="display:none">
+      <div class="ei">📦</div>
+      <div class="et">No products here</div>
+      <div style="font-size:13px;margin-bottom:16px">Add the first product to this category</div>
+      <button class="btn btn-primary" onclick="openProdForm(null)">+ Add Product</button>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ════ PRODUCT FORM MODAL ════ -->
+<div class="modal-overlay pm-modal" id="prodModal">
+<div class="modal" style="max-width:820px">
+  <div class="modal-head">
+    <div class="modal-title" id="prodModalTitle">Add New Product</div>
+    <button class="modal-close" onclick="closeModal('prodModal')">✕</button>
+  </div>
+  <div class="modal-body" style="padding:20px 24px">
+    <div class="tab-bar">
+      <div class="tab-item on" data-t="basic">📝 Basic Info</div>
+      <div class="tab-item" data-t="specs">📐 Specifications</div>
+      <div class="tab-item" data-t="imgs">🖼️ Images & Video</div>
+      <div class="tab-item" data-t="tags">🏷️ Features & Tags</div>
+    </div>
+
+    <!-- Basic -->
+    <div class="tab-pane on" data-p="basic">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Product Name (EN)<span class="req">*</span></label>
+          <input class="form-input" id="fn" placeholder="e.g. SBR Neoprene Sheet 3mm/T">
+        </div>
+        <div class="form-group">
+          <label class="form-label">中文名称</label>
+          <input class="form-input" id="fcn" placeholder="例：SBR潜水料 3mm/涤纶">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Category<span class="req">*</span></label>
+          <select class="form-select" id="fcat" onchange="refreshSubcat()"></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Sub-category</label>
+          <select class="form-select" id="fsub"><option value="">— none —</option></select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Short Description (listing page)</label>
+        <textarea class="form-textarea" id="fdesc" style="min-height:72px" placeholder="Brief description shown on the products listing page…"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Full Description (detail page)</label>
+        <textarea class="form-textarea" id="fdescp" style="min-height:100px" placeholder="Full product details, technical notes, application use cases…"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <select class="form-select" id="fstatus">
+            <option value="active">Active (Published)</option>
+            <option value="draft">Draft (Hidden)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Featured on Homepage</label>
+          <select class="form-select" id="ffeat">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Specs -->
+    <div class="tab-pane" data-p="specs">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Neoprene Grade</label>
+          <select class="form-select" id="fgrade">
+            <option value="">Select…</option>
+            <option>SBR</option><option>SCR</option><option>CR</option>
+            <option>NBR</option><option>EPDM</option><option>Custom</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Thickness</label>
+          <input class="form-input" id="fthick" placeholder="e.g. 3mm / 2–5mm">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Surface Fabric (贴合面料)</label>
+          <input class="form-input" id="ffabric" placeholder="e.g. 涤纶(T) / 氨纶 / 佳积布 / 涤氨">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Lamination Side</label>
+          <select class="form-select" id="flamside">
+            <option value="">N/A</option>
+            <option>Single Face (单面)</option>
+            <option>Double Face (双面)</option>
+            <option>Custom</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Width (幅宽)</label>
+          <input class="form-input" id="fwidth" placeholder="e.g. 150cm standard">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Color (颜色)</label>
+          <input class="form-input" id="fcolor" placeholder="e.g. Black / Custom">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">MOQ</label>
+          <input class="form-input" id="fmoq" placeholder="e.g. 50 meters">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Sample Lead Time</label>
+          <input class="form-input" id="fslt" placeholder="e.g. 3–7 days">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Production Lead Time</label>
+          <input class="form-input" id="fplt" placeholder="e.g. 15–25 days">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Certifications</label>
+          <input class="form-input" id="fcerts" placeholder="e.g. SGS, REACH, OEKO-TEX">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Applications (应用范围)</label>
+        <input class="form-input" id="fapps" placeholder="e.g. Wetsuit, Bottle sleeve, Sports support, Footwear">
+      </div>
+      <div class="form-group">
+        <label class="form-label" style="display:flex;align-items:center;justify-content:space-between">
+          Additional Specs
+          <button type="button" class="btn btn-ghost btn-sm" onclick="addSpec()">+ Add Row</button>
+        </label>
+        <div class="spec-list" id="specList"></div>
+      </div>
+    </div>
+
+    <!-- Images -->
+    <div class="tab-pane" data-p="imgs">
+      <div class="form-group">
+        <label class="form-label">Product Images (max 8) — first image = thumbnail</label>
+        <div class="img-grid" id="imgGrid"></div>
+      </div>
+      <div class="form-group" style="margin-top:18px">
+        <label class="form-label">Video URL (YouTube link)</label>
+        <input class="form-input" id="fvideo" placeholder="https://www.youtube.com/watch?v=…">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Technical Sheet / PDF URL</label>
+        <input class="form-input" id="fpdf" placeholder="https://…/datasheet.pdf">
+      </div>
+    </div>
+
+    <!-- Features & Tags -->
+    <div class="tab-pane" data-p="tags">
+      <div class="form-group">
+        <label class="form-label">Feature Tags (select all that apply)</label>
+        <div class="feat-wrap" id="featWrap"></div>
+      </div>
+      <div class="form-group" style="margin-top:20px">
+        <label class="form-label">Custom Tags (comma separated)</label>
+        <input class="form-input" id="fctags" placeholder="e.g. OEM, Eco-friendly, FDA">
+      </div>
+      <div class="form-group">
+        <label class="form-label">SEO Title</label>
+        <input class="form-input" id="fseot" placeholder="Leave blank to use product name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">SEO Description</label>
+        <textarea class="form-textarea" id="fseod" style="min-height:72px" placeholder="Meta description for search engines…"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="modal-foot">
+    <button class="btn btn-ghost" onclick="closeModal('prodModal')">Cancel</button>
+    <button class="btn btn-ghost" onclick="saveProd('draft')">Save Draft</button>
+    <button class="btn btn-primary" onclick="saveProd('active')">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      Publish
+    </button>
+  </div>
+</div>
+</div>
+
+<!-- ════ CATEGORY MANAGER MODAL ════ -->
+<div class="modal-overlay" id="catMgrModal">
+<div class="modal" style="max-width:540px">
+  <div class="modal-head">
+    <div class="modal-title">Manage Categories</div>
+    <button class="modal-close" onclick="closeModal('catMgrModal')">✕</button>
+  </div>
+  <div class="modal-body">
+    <div style="display:flex;gap:9px;margin-bottom:14px">
+      <input class="form-input" id="ncatname" placeholder="Category name…" style="flex:1" onkeydown="if(event.key==='Enter')addCat()">
+      <input class="form-input" id="ncaticon" placeholder="Icon 🧴" style="width:68px;text-align:center">
+      <select class="form-select" id="ncatparent" style="width:170px">
+        <option value="root">Top Level</option>
+      </select>
+      <button class="btn btn-primary" onclick="addCat()">Add</button>
+    </div>
+    <div style="font-size:11.5px;color:var(--muted);margin-bottom:10px">All categories (drag to reorder)</div>
+    <div class="cat-mgr-list" id="catMgrList"></div>
+  </div>
+  <div class="modal-foot">
+    <button class="btn btn-ghost" onclick="closeModal('catMgrModal')">Close</button>
+  </div>
+</div>
+</div>
+
+<!-- ════ ADD CAT QUICK MODAL ════ -->
+<div class="modal-overlay" id="addCatModal">
+<div class="modal" style="max-width:360px">
+  <div class="modal-head">
+    <div class="modal-title" id="addCatTitle">Add Category</div>
+    <button class="modal-close" onclick="closeModal('addCatModal')">✕</button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label class="form-label">Category Name</label>
+      <input class="form-input" id="qcname" placeholder="Category name…">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Icon (emoji)</label>
+      <input class="form-input" id="qcicon" placeholder="e.g. 🧴 📦" maxlength="4" style="font-size:18px;text-align:center">
+    </div>
+  </div>
+  <div class="modal-foot">
+    <button class="btn btn-ghost" onclick="closeModal('addCatModal')">Cancel</button>
+    <button class="btn btn-primary" onclick="confirmAddCat()">Add</button>
+  </div>
+</div>
+</div>
+
+<div id="toast"></div>
+<script src="admin.js"></script>
+<script>
+/* ═══ DEFAULT CATEGORIES (7大类 + 所有子类) ═══ */
+const DEFAULT_CATS = [
+  // 1. Neoprene Fabric
+  {id:'c1',name:'Neoprene Fabric',icon:'🧴',parent:'root',order:1},
+  {id:'c1a',name:'SBR Neoprene',icon:'⚫',parent:'c1',order:1},
+  {id:'c1b',name:'SCR Neoprene',icon:'⚫',parent:'c1',order:2},
+  {id:'c1c',name:'CR Neoprene',icon:'⚫',parent:'c1',order:3},
+  {id:'c1d',name:'Laminated Neoprene',icon:'📋',parent:'c1',order:4},
+  // 2. Laminated Neoprene Fabric
+  {id:'c2',name:'Laminated Neoprene Fabric',icon:'🔗',parent:'root',order:2},
+  {id:'c2a',name:'Polyester Lamination',icon:'🧵',parent:'c2',order:1},
+  {id:'c2b',name:'Spandex Lamination',icon:'🧵',parent:'c2',order:2},
+  {id:'c2c',name:'Lycra Lamination',icon:'🧵',parent:'c2',order:3},
+  {id:'c2d',name:'Jersey Lamination',icon:'🧵',parent:'c2',order:4},
+  {id:'c2e',name:'OK Fabric Lamination',icon:'🧵',parent:'c2',order:5},
+  {id:'c2f',name:'Mesh Lamination',icon:'🧵',parent:'c2',order:6},
+  {id:'c2g',name:'TPU Lamination',icon:'🧵',parent:'c2',order:7},
+  {id:'c2h',name:'Velvet Lamination',icon:'🧵',parent:'c2',order:8},
+  // 3. Application Materials
+  {id:'c3',name:'Application Materials',icon:'🎯',parent:'root',order:3},
+  {id:'c3a',name:'Wetsuit Material',icon:'🤿',parent:'c3',order:1},
+  {id:'c3b',name:'Cup Sleeve Material',icon:'🥤',parent:'c3',order:2},
+  {id:'c3c',name:'Footwear Material',icon:'👟',parent:'c3',order:3},
+  {id:'c3d',name:'Sports Support Material',icon:'💪',parent:'c3',order:4},
+  {id:'c3e',name:'Bag Material',icon:'👜',parent:'c3',order:5},
+  {id:'c3f',name:'Medical Support Material',icon:'🏥',parent:'c3',order:6},
+  {id:'c3g',name:'Fitness Product Material',icon:'🏋️',parent:'c3',order:7},
+  // 4. Functional Fabric
+  {id:'c4',name:'Functional Fabric',icon:'⚡',parent:'root',order:4},
+  {id:'c4a',name:'Waterproof',icon:'💧',parent:'c4',order:1},
+  {id:'c4b',name:'Stretch',icon:'↔️',parent:'c4',order:2},
+  {id:'c4c',name:'Thermal Insulation',icon:'🌡️',parent:'c4',order:3},
+  {id:'c4d',name:'Shock Absorption',icon:'🛡️',parent:'c4',order:4},
+  {id:'c4e',name:'Breathable',icon:'🌬️',parent:'c4',order:5},
+  {id:'c4f',name:'Embossed',icon:'🔲',parent:'c4',order:6},
+  {id:'c4g',name:'Printed',icon:'🖨️',parent:'c4',order:7},
+  // 5. Surface Fabric Options
+  {id:'c5',name:'Surface Fabric Options',icon:'🎨',parent:'root',order:5},
+  {id:'c5a',name:'Lycra Fabric',icon:'🔵',parent:'c5',order:1},
+  {id:'c5b',name:'T Fabric',icon:'🔵',parent:'c5',order:2},
+  {id:'c5c',name:'Jersey Fabric',icon:'🔵',parent:'c5',order:3},
+  {id:'c5d',name:'OK Fabric',icon:'🔵',parent:'c5',order:4},
+  {id:'c5e',name:'Mesh Fabric',icon:'🔵',parent:'c5',order:5},
+  {id:'c5f',name:'Satin Fabric',icon:'🔵',parent:'c5',order:6},
+  {id:'c5g',name:'Milk Silk Fabric',icon:'🔵',parent:'c5',order:7},
+  {id:'c5h',name:'Velvet Fabric',icon:'🔵',parent:'c5',order:8},
+  {id:'c5i',name:'Brushed Fabric',icon:'🔵',parent:'c5',order:9},
+  // 6. OEM & Custom Solutions
+  {id:'c6',name:'OEM & Custom Solutions',icon:'🏭',parent:'root',order:6},
+  {id:'c6a',name:'Custom Thickness',icon:'📏',parent:'c6',order:1},
+  {id:'c6b',name:'Custom Lamination',icon:'📐',parent:'c6',order:2},
+  {id:'c6c',name:'Custom Color',icon:'🎨',parent:'c6',order:3},
+  {id:'c6d',name:'Sample Development',icon:'🔬',parent:'c6',order:4},
+  // 7. Best Sellers
+  {id:'c7',name:'Best Sellers',icon:'⭐',parent:'root',order:7},
+];
+
+const FEATS = [
+  {id:'waterproof',label:'Waterproof 防水',icon:'💧'},
+  {id:'stretch',label:'Stretch 弹性',icon:'↔️'},
+  {id:'thermal',label:'Thermal Insulation 隔热',icon:'🌡️'},
+  {id:'shock',label:'Shock Absorption 减震',icon:'🛡️'},
+  {id:'breathable',label:'Breathable 透气',icon:'🌬️'},
+  {id:'embossed',label:'Embossed 压纹',icon:'🔲'},
+  {id:'printed',label:'Printed 印花',icon:'🖨️'},
+  {id:'oem',label:'OEM Available',icon:'🏭'},
+  {id:'lowmoq',label:'Low MOQ',icon:'📦'},
+  {id:'fastsample',label:'Fast Sampling',icon:'⚡'},
+  {id:'certified',label:'SGS Certified',icon:'✅'},
+  {id:'eco',label:'Eco-Friendly',icon:'🌿'},
+];
+
+/* ═══ STATE ═══ */
+let selCatId = '__all__';
+let editId = null;
+let curImgs = [];
+let curView = 'grid';
+let addCatParentId = 'root';
+let specIdx = 0;
+
+/* ═══ HELPERS ═══ */
+function getCats(){ return DB.get('categories') || DEFAULT_CATS; }
+function getProds(){ return DB.get('products') || []; }
+function catById(id){ return getCats().find(c=>c.id===id); }
+function catNameById(id){ const c=catById(id); return c?c.name:id||''; }
+function childrenOf(pid){ return getCats().filter(c=>c.parent===pid).sort((a,b)=>a.order-b.order); }
+function allDescendants(pid){ const d=childrenOf(pid); let all=[...d]; d.forEach(c=>{all=all.concat(allDescendants(c.id));}); return all; }
+function countInCat(cid){ const ps=getProds(); const ids=new Set([cid,...allDescendants(cid).map(c=>c.id)]); return ps.filter(p=>ids.has(p.category)||ids.has(p.subcategory)).length; }
+function initDefaultCats(){ if(!DB.get('categories')) DB.set('categories',DEFAULT_CATS); }
+
+/* ═══ CATEGORY TREE RENDER ═══ */
+function renderCatTree(){
+  initDefaultCats();
+  const total = getProds().length;
+  document.getElementById('catAllCnt').textContent = total;
+  const allRow = document.getElementById('catAllRow');
+  allRow.className = 'cat-all' + (selCatId==='__all__'?' sel':'');
+
+  function node(cat, level){
+    const kids = childrenOf(cat.id);
+    const cnt = countInCat(cat.id);
+    const isSel = selCatId===cat.id;
+    const isAnc = allDescendants(cat.id).some(c=>c.id===selCatId);
+    const isOpen = isSel||isAnc||cat._open;
+    return `<div class="cat-item">
+      <div class="cat-row${isSel?' sel':''}" onclick="selCat('${cat.id}')">
+        <span class="cr-arrow${kids.length?isOpen?' open':'':' hide'}"
+          onclick="${kids.length?`toggleNode(event,'${cat.id}')`:''}" style="${kids.length?'':'pointer-events:none'}">▶</span>
+        <span class="cr-icon">${cat.icon||'📁'}</span>
+        <span class="cr-name" title="${cat.name}">${cat.name}</span>
+        ${cnt>0?`<span class="cr-cnt">${cnt}</span>`:''}
+        <div class="cr-btns">
+          <button class="cr-btn" onclick="openAddCat('${cat.id}',event)" title="Add sub-category">+</button>
+          <button class="cr-btn" onclick="renameCat('${cat.id}',event)" title="Rename">✏️</button>
+          <button class="cr-btn" style="color:var(--red)" onclick="deleteCat('${cat.id}',event)" title="Delete">🗑</button>
+        </div>
+      </div>
+      ${kids.length?`<div class="cat-children${isOpen?' open':''}" id="ch_${cat.id}">${kids.map(k=>node(k,level+1)).join('')}</div>`:''}
+    </div>`;
+  }
+  document.getElementById('catTree').innerHTML = childrenOf('root').map(c=>node(c,0)).join('');
+}
+
+function toggleNode(e,id){
+  e.stopPropagation();
+  const el=document.getElementById('ch_'+id);
+  const arrow=el?.previousElementSibling?.querySelector('.cr-arrow');
+  if(el){el.classList.toggle('open');arrow?.classList.toggle('open');}
+}
+
+function selCat(id){
+  selCatId=id;
+  document.getElementById('psubtitle').textContent = id==='__all__'?'All Products':catNameById(id);
+  renderCatTree();
+  renderProds();
+}
+
+function openAddCat(pid,e){
+  if(e) e.stopPropagation();
+  addCatParentId=pid;
+  document.getElementById('addCatTitle').textContent = pid==='root'?'Add Top-Level Category':`Add Sub-category → "${catNameById(pid)}"`;
+  document.getElementById('qcname').value='';
+  document.getElementById('qcicon').value='';
+  openModal('addCatModal');
+  setTimeout(()=>document.getElementById('qcname').focus(),100);
+}
+
+function confirmAddCat(){
+  const name=document.getElementById('qcname').value.trim();
+  const icon=document.getElementById('qcicon').value.trim()||'📁';
+  if(!name){toast('Enter category name','error');return;}
+  const cats=getCats();
+  const sibs=cats.filter(c=>c.parent===addCatParentId);
+  cats.push({id:genId('c'),name,icon,parent:addCatParentId,order:sibs.length+1});
+  DB.set('categories',cats);
+  closeModal('addCatModal');
+  renderCatTree();
+  toast(`✅ "${name}" added`,'success');
+}
+
+function renameCat(id,e){
+  e.stopPropagation();
+  const cats=getCats(); const c=cats.find(x=>x.id===id);
+  if(!c) return;
+  const n=prompt(`Rename "${c.name}":`,c.name);
+  if(n&&n.trim()){c.name=n.trim();DB.set('categories',cats);renderCatTree();toast('Renamed','success');}
+}
+
+function deleteCat(id,e){
+  e.stopPropagation();
+  const cats=getCats(); const c=cats.find(x=>x.id===id);
+  if(!c) return;
+  const kids=allDescendants(c.id); const cnt=countInCat(id);
+  if(!confirm(`Delete "${c.name}"${kids.length?` + ${kids.length} sub-categories`:''}`+(cnt?` (${cnt} products affected)`:'')+'?')) return;
+  const rem=new Set([id,...kids.map(k=>k.id)]);
+  DB.set('categories',cats.filter(x=>!rem.has(x.id)));
+  if(rem.has(selCatId)) selCat('__all__');
+  else {renderCatTree();renderProds();}
+  toast('Deleted','success');
+}
+
+/* ═══ CATEGORY MANAGER MODAL ═══ */
+function openCatMgr(){
+  renderCatMgrList();
+  // populate parent select
+  const cats=getCats(); const roots=childrenOf('root');
+  document.getElementById('ncatparent').innerHTML=`<option value="root">Top Level</option>`
+    +roots.map(c=>`<option value="${c.id}">${c.icon} ${c.name}</option>`).join('');
+  openModal('catMgrModal');
+}
+function renderCatMgrList(){
+  const cats=getCats();
+  // sort: roots first by order, then children grouped under parent
+  const sorted=[];
+  function push(pid,depth){
+    childrenOf(pid).forEach(c=>{sorted.push({...c,depth});push(c.id,depth+1);});
+  }
+  push('root',0);
+  document.getElementById('catMgrList').innerHTML=sorted.map(c=>`
+    <div class="cml-item" data-id="${c.id}">
+      <span class="cml-handle">⠿</span>
+      <span class="cml-icon">${'　'.repeat(c.depth)}${c.icon||'📁'}</span>
+      <span class="cml-name">${c.name}</span>
+      ${c.parent!=='root'?`<span class="cml-parent">${catNameById(c.parent)}</span>`:''}
+      <button class="cml-del" onclick="deleteCatMgr('${c.id}')">🗑</button>
+    </div>`).join('');
+}
+function addCat(){
+  const name=document.getElementById('ncatname').value.trim();
+  const icon=document.getElementById('ncaticon').value.trim()||'📁';
+  const parent=document.getElementById('ncatparent').value;
+  if(!name){toast('Enter name','error');return;}
+  const cats=getCats();
+  cats.push({id:genId('c'),name,icon,parent,order:cats.filter(c=>c.parent===parent).length+1});
+  DB.set('categories',cats);
+  document.getElementById('ncatname').value='';
+  renderCatMgrList();
+  renderCatTree();
+  // refresh parent select
+  const roots=childrenOf('root');
+  document.getElementById('ncatparent').innerHTML=`<option value="root">Top Level</option>`
+    +roots.map(c=>`<option value="${c.id}">${c.icon} ${c.name}</option>`).join('');
+  toast(`"${name}" added`,'success');
+}
+function deleteCatMgr(id){
+  const cats=getCats(); const c=cats.find(x=>x.id===id);
+  if(!confirm(`Delete "${c?.name}"?`)) return;
+  const rem=new Set([id,...allDescendants(id).map(k=>k.id)]);
+  DB.set('categories',cats.filter(x=>!rem.has(x.id)));
+  renderCatMgrList(); renderCatTree();
+  toast('Deleted','success');
+}
+
+/* ═══ PRODUCTS RENDER ═══ */
+function getFiltered(){
+  const prods=getProds();
+  const cats=getCats();
+  const q=(document.getElementById('srch')?.value||'').toLowerCase();
+  const sf=document.getElementById('sfilt')?.value||'';
+  return prods.filter(p=>{
+    if(selCatId!=='__all__'){
+      const valid=new Set([selCatId,...allDescendants(selCatId).map(c=>c.id)]);
+      if(!valid.has(p.category)&&!valid.has(p.subcategory)) return false;
+    }
+    if(q&&!p.name?.toLowerCase().includes(q)&&!p.name_cn?.toLowerCase().includes(q)) return false;
+    if(sf&&p.status!==sf) return false;
+    return true;
+  });
+}
+
+function renderProds(){
+  const prods=getFiltered();
+  document.getElementById('ptInfo').textContent=`${prods.length} product${prods.length!==1?'s':''}`;
+  if(!prods.length){
+    document.getElementById('pmEmpty').style.display='block';
+    document.getElementById('pgGrid').innerHTML='';
+    document.getElementById('pgListBody').innerHTML='';
+    return;
+  }
+  document.getElementById('pmEmpty').style.display='none';
+
+  // Grid
+  document.getElementById('pgGrid').innerHTML=prods.map(p=>{
+    const img=p.images?.[0];
+    const cat=catNameById(p.category);
+    return `<div class="pg-card">
+      <div class="pg-thumb">
+        ${img?`<img src="${img}" alt="${p.name}">`:'📦'}
+        <div class="pg-hover">
+          <button class="pg-hover-btn" onclick="openDetail('${p.id}')">👁 View</button>
+          <button class="pg-hover-btn" onclick="openProdForm('${p.id}')">✏️ Edit</button>
+        </div>
+      </div>
+      <div class="pg-body">
+        <div class="pg-cat">${cat}</div>
+        <div class="pg-name">${p.name}</div>
+        <div class="pg-spec">${[p.grade,p.thickness,p.fabric].filter(Boolean).join(' · ')||'—'}</div>
+        <div class="pg-foot">
+          <span class="pg-status ${p.status==='draft'?'off':'on'}">${p.status==='draft'?'Draft':'Active'}</span>
+          <div class="pg-acts">
+            <div class="ib e" onclick="openProdForm('${p.id}')" title="Edit"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+            <div class="ib" onclick="toggleFeat(event,'${p.id}')" title="${p.featured?'Unfeature':'Feature'}" style="color:${p.featured?'#F5A623':'var(--muted)'}"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+            <div class="ib d" onclick="deleteProd('${p.id}')" title="Delete"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg></div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // List
+  document.getElementById('pgListBody').innerHTML=prods.map(p=>`<tr>
+    <td><div class="td-img">${p.images?.[0]?`<img src="${p.images[0]}" style="width:44px;height:44px;object-fit:cover;border-radius:7px">`:''}</div></td>
+    <td><div style="font-weight:600">${p.name}</div><div style="font-size:11.5px;color:var(--muted)">${p.name_cn||''}</div></td>
+    <td style="font-size:13px">${catNameById(p.category)}</td>
+    <td style="font-size:13px">${[p.grade,p.thickness].filter(Boolean).join(' / ')||'—'}</td>
+    <td style="font-size:13px;color:var(--mid)">${p.fabric||'—'}</td>
+    <td style="font-size:13px">${p.moq||'—'}</td>
+    <td><span class="badge badge-${p.status==='draft'?'gray':'green'}">${p.status==='draft'?'Draft':'Active'}</span></td>
+    <td><div class="toggle ${p.featured?'on':''}" onclick="toggleFeat(event,'${p.id}')"></div></td>
+    <td style="white-space:nowrap">
+      <button class="btn btn-ghost btn-sm" onclick="openDetail('${p.id}')">View</button>
+      <button class="btn btn-primary btn-sm" onclick="openProdForm('${p.id}')">Edit</button>
+      <button class="btn btn-danger btn-sm" onclick="deleteProd('${p.id}')">Del</button>
+    </td>
+  </tr>`).join('');
+}
+
+function openDetail(id){ window.open(`../product-detail.html?id=${id}`,'_blank'); }
+
+function toggleFeat(e,id){
+  e.stopPropagation();
+  const ps=getProds(); const p=ps.find(x=>x.id===id); if(!p) return;
+  p.featured=!p.featured; DB.set('products',ps); renderProds();
+  toast(p.featured?'⭐ Featured':'Removed from featured',p.featured?'success':'');
+}
+
+function deleteProd(id){
+  const ps=getProds(); const p=ps.find(x=>x.id===id);
+  if(!confirm(`Delete "${p?.name}"?`)) return;
+  DB.set('products',ps.filter(x=>x.id!==id));
+  renderProds(); renderCatTree();
+  toast('Product deleted');
+}
+
+function setView(v){
+  curView=v;
+  document.getElementById('vg').className='vbtn'+(v==='grid'?' on':'');
+  document.getElementById('vl').className='vbtn'+(v==='list'?' on':'');
+  document.getElementById('pgGrid').className='pg-grid'+(v==='grid'?' on':' off');
+  document.getElementById('pgList').className='pg-list'+(v==='list'?' on':'');
+}
+
+/* ═══ PRODUCT FORM ═══ */
+function openProdForm(id){
+  editId=id; curImgs=[];
+  document.getElementById('prodModalTitle').textContent=id?'Edit Product':'Add New Product';
+
+  // Reset all fields
+  ['fn','fcn','fdesc','fdescp','fgrade','fthick','ffabric','flamside','fwidth',
+   'fcolor','fmoq','fslt','fplt','fcerts','fapps','fvideo','fpdf','fctags','fseot','fseod']
+    .forEach(x=>{const el=document.getElementById(x);if(el)el.value='';});
+  document.getElementById('fstatus').value='active';
+  document.getElementById('ffeat').value='1';
+  document.getElementById('specList').innerHTML='';
+  specIdx=0;
+
+  // Populate category selects
+  const cats=getCats(); const roots=childrenOf('root');
+  document.getElementById('fcat').innerHTML=`<option value="">Select category…</option>`
+    +roots.map(c=>`<option value="${c.id}">${c.icon} ${c.name}</option>`).join('');
+  document.getElementById('fsub').innerHTML='<option value="">— none —</option>';
+
+  // Feature tags
+  renderFeatTags([]);
+
+  // Image grid (empty)
+  renderImgGrid();
+
+  if(id){
+    const p=getProds().find(x=>x.id===id);
+    if(p){
+      ['fn','fcn','fdesc','fdescp','fgrade','fthick','ffabric','flamside','fwidth',
+       'fcolor','fmoq','fslt','fplt','fcerts','fapps','fvideo','fpdf','fctags','fseot','fseod']
+        .forEach(fid=>{
+          const map={fn:'name',fcn:'name_cn',fdesc:'desc',fdescp:'desc_full',fgrade:'grade',
+            fthick:'thickness',ffabric:'fabric',flamside:'lam_side',fwidth:'width',fcolor:'color',
+            fmoq:'moq',fslt:'sample_time',fplt:'lead_time',fcerts:'certs',fapps:'applications',
+            fvideo:'video',fpdf:'pdf',fctags:'custom_tags',fseot:'seo_title',fseod:'seo_desc'};
+          const el=document.getElementById(fid); if(el&&map[fid]) el.value=p[map[fid]]||'';
+        });
+      document.getElementById('fstatus').value=p.status||'active';
+      document.getElementById('ffeat').value=p.featured?'1':'0';
+      document.getElementById('fcat').value=p.category||'';
+      refreshSubcat(p.subcategory);
+      curImgs=[...(p.images||[])];
+      renderImgGrid();
+      renderFeatTags(p.features||[]);
+      (p.specs||[]).forEach(s=>addSpec(s.key,s.val));
+    }
+  }
+
+  // Reset to first tab
+  document.querySelectorAll('.tab-item').forEach((t,i)=>t.classList.toggle('on',i===0));
+  document.querySelectorAll('.tab-pane').forEach((p,i)=>p.classList.toggle('on',i===0));
+
+  openModal('prodModal');
+}
+
+// Tab switching for product form
+document.addEventListener('click',e=>{
+  const ti=e.target.closest('.tab-item');
+  if(!ti) return;
+  const t=ti.dataset.t;
+  ti.closest('.modal-body').querySelectorAll('.tab-item').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
+  ti.closest('.modal-body').querySelectorAll('.tab-pane').forEach(x=>x.classList.toggle('on',x.dataset.p===t));
+});
+
+function refreshSubcat(preselect=''){
+  const cid=document.getElementById('fcat').value;
+  const kids=childrenOf(cid);
+  document.getElementById('fsub').innerHTML='<option value="">— none —</option>'
+    +kids.map(c=>`<option value="${c.id}">${c.icon} ${c.name}</option>`).join('');
+  if(preselect) document.getElementById('fsub').value=preselect;
+}
+
+/* Images */
+function renderImgGrid(){
+  let html='';
+  for(let i=0;i<8;i++){
+    const img=curImgs[i];
+    html+=img
+      ?`<div class="img-slot filled" onclick="replaceImg(${i})">
+          <img src="${img}" alt="">
+          <button class="del-img" onclick="delImg(event,${i})">✕</button>
+        </div>`
+      :`<div class="img-slot" onclick="uploadImg(${i})">
+          <div class="img-slot-add">+</div>
+          <div class="add-lbl">${i===0?'Main Photo':'Photo '+(i+1)}</div>
+        </div>`;
+  }
+  document.getElementById('imgGrid').innerHTML=html;
+}
+function uploadImg(slot){
+  const inp=document.createElement('input'); inp.type='file'; inp.accept='image/*';
+  inp.onchange=e=>{
+    const f=e.target.files[0]; if(!f) return;
+    const r=new FileReader(); r.onload=ev=>{curImgs[slot]=ev.target.result;renderImgGrid();};
+    r.readAsDataURL(f);
+  };
+  inp.click();
+}
+function replaceImg(slot){uploadImg(slot);}
+function delImg(e,slot){e.stopPropagation();curImgs.splice(slot,1);renderImgGrid();}
+
+/* Feature tags */
+function renderFeatTags(sel=[]){
+  document.getElementById('featWrap').innerHTML=FEATS.map(f=>`
+    <div class="feat-chip${sel.includes(f.id)?' on':''}" data-fid="${f.id}" onclick="this.classList.toggle('on')">
+      ${f.icon} ${f.label}
+    </div>`).join('');
+}
+function getSelFeats(){ return [...document.querySelectorAll('.feat-chip.on')].map(x=>x.dataset.fid); }
+
+/* Spec rows */
+function addSpec(key='',val=''){
+  const id='sr'+(specIdx++);
+  const d=document.createElement('div'); d.className='spec-row'; d.id=id;
+  d.innerHTML=`
+    <input class="form-input" data-sk type="text" placeholder="Property name…" value="${key}">
+    <input class="form-input" data-sv type="text" placeholder="Value…" value="${val}">
+    <button class="spec-del" onclick="document.getElementById('${id}').remove()">✕</button>`;
+  document.getElementById('specList').appendChild(d);
+}
+function getSpecs(){
+  return [...document.querySelectorAll('.spec-row')].map(r=>({
+    key:r.querySelector('[data-sk]').value.trim(),
+    val:r.querySelector('[data-sv]').value.trim()
+  })).filter(s=>s.key||s.val);
+}
+
+/* Save */
+function saveProd(statusArg){
+  const name=document.getElementById('fn').value.trim();
+  const cat=document.getElementById('fcat').value;
+  if(!name){toast('Product name required','error');return;}
+  if(!cat){toast('Select a category','error');return;}
+
+  const ps=getProds();
+  const prod={
+    id:editId||genId('p'),
+    name,name_cn:document.getElementById('fcn').value.trim(),
+    category:cat,subcategory:document.getElementById('fsub').value,
+    desc:document.getElementById('fdesc').value.trim(),
+    desc_full:document.getElementById('fdescp').value.trim(),
+    grade:document.getElementById('fgrade').value,
+    thickness:document.getElementById('fthick').value.trim(),
+    fabric:document.getElementById('ffabric').value.trim(),
+    lam_side:document.getElementById('flamside').value,
+    width:document.getElementById('fwidth').value.trim(),
+    color:document.getElementById('fcolor').value.trim(),
+    moq:document.getElementById('fmoq').value.trim(),
+    sample_time:document.getElementById('fslt').value.trim(),
+    lead_time:document.getElementById('fplt').value.trim(),
+    certs:document.getElementById('fcerts').value.trim(),
+    applications:document.getElementById('fapps').value.trim(),
+    video:document.getElementById('fvideo').value.trim(),
+    pdf:document.getElementById('fpdf').value.trim(),
+    custom_tags:document.getElementById('fctags').value.trim(),
+    seo_title:document.getElementById('fseot').value.trim(),
+    seo_desc:document.getElementById('fseod').value.trim(),
+    features:getSelFeats(),
+    specs:getSpecs(),
+    images:curImgs.filter(Boolean),
+    status:statusArg||document.getElementById('fstatus').value,
+    featured:document.getElementById('ffeat').value==='1',
+    created:editId?(ps.find(p=>p.id===editId)?.created||Date.now()):Date.now(),
+    updated:Date.now(),
+  };
+
+  if(editId){ const i=ps.findIndex(p=>p.id===editId); if(i>=0)ps[i]=prod; else ps.push(prod); }
+  else ps.push(prod);
+
+  DB.set('products',ps);
+  closeModal('prodModal');
+  renderProds(); renderCatTree();
+  toast(editId?'✅ Product updated':'✅ Product added','success');
+  editId=null;
+}
+
+/* ═══ INIT ═══ */
+function pageInit(){
+  initDefaultCats();
+  renderCatTree();
+  renderProds();
+}
+</script>
+</body>
+</html>
