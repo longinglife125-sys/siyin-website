@@ -368,3 +368,46 @@ tbody tr:hover { background: var(--gray-lt); }
     padding-top: 28px !important;
   }
 }
+/* 强制 Process 7步骤横排显示（电脑端） */
+.process-flow {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+}
+
+.proc-step {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  flex: 1 0 auto !important;
+  min-width: 110px !important;
+  padding: 0 8px !important;
+}
+
+.proc-arrow {
+  display: block !important;
+  padding-top: 28px !important;
+  color: var(--blue) !important;
+  font-size: 22px !important;
+  flex-shrink: 0 !important;
+}
+
+/* 确保箭头在手机上也不隐藏 */
+@media (max-width: 768px) {
+  .process-flow {
+    overflow-x: auto !important;
+    gap: 8px !important;
+    padding-bottom: 16px !important;
+  }
+  .proc-step {
+    min-width: 100px !important;
+    flex-shrink: 0 !important;
+  }
+  .proc-arrow {
+    display: block !important;
+  }
+}
