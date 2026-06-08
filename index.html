@@ -671,7 +671,7 @@ ul {
   line-height: 1.5;
 }
 
-/* ── Applications 横向滑动（增强版）── */
+/* ── Applications 横向滑动 ── */
 .apps {
   background: var(--gray-lt);
   padding: 60px 0;
@@ -765,7 +765,6 @@ ul {
   color: #fff;
   text-align: center;
 }
-/* 左右箭头按钮 */
 .slider-arrow {
   width: 40px;
   height: 40px;
@@ -793,7 +792,6 @@ ul {
   fill: none;
   stroke-width: 2.5;
 }
-/* 滚动指示器 */
 .scroll-indicator {
   display: flex;
   justify-content: center;
@@ -814,38 +812,12 @@ ul {
   background: var(--blue);
 }
 
-/* ── Process ── */
-.process {
-  background: #fff;
-  padding: 70px 0;
-}
-.process-header {
-  text-align: center;
-  margin-bottom: 50px;
-}
-.process-flow {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 0;
-  overflow-x: auto;
-}
+/* ── Process 增强动态效果 ── */
 .proc-step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  flex: 1;
-  min-width: 110px;
-  padding: 0 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
-.proc-dot-num {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  color: var(--blue);
-  margin-bottom: 10px;
-}
+
 .proc-circle {
   width: 80px;
   height: 80px;
@@ -854,31 +826,60 @@ ul {
   border: 3px solid var(--gray-bd);
   background: var(--gray-lt);
   margin: 0 auto 14px;
+  transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
 }
+
 .proc-circle img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.4s ease;
 }
-.proc-circle.highlight {
+
+/* 悬停动效 */
+.proc-step:hover {
+  transform: translateY(-4px);
+}
+
+.proc-step:hover .proc-circle {
   border-color: var(--blue);
-  box-shadow: 0 0 0 4px rgba(0,51,160,.12);
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(0,51,160,.2);
 }
-.proc-title {
-  font-size: 12.5px;
-  font-weight: 700;
-  color: var(--text);
-  line-height: 1.3;
+
+.proc-step:hover .proc-circle img {
+  transform: scale(1.08);
 }
-.proc-note {
-  font-size: 11px;
+
+.proc-step:hover .proc-title {
   color: var(--blue);
-  font-weight: 600;
 }
-.proc-arrow {
-  padding-top: 28px;
-  color: var(--blue);
-  font-size: 22px;
+
+.proc-step:hover .proc-dot-num {
+  transform: scale(1.1);
+  display: inline-block;
+}
+
+.proc-dot-num {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+/* 点击瞬间动效 */
+.proc-step:active .proc-circle {
+  transform: scale(0.98);
+  transition: transform 0.05s;
+}
+
+/* 点击动画 */
+.step-animate .proc-circle {
+  animation: stepPop 0.3s ease-out;
+}
+
+@keyframes stepPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); box-shadow: 0 0 0 6px rgba(0,51,160,.2); }
+  100% { transform: scale(1); }
 }
 
 /* ── Products ── */
@@ -1565,7 +1566,7 @@ ul {
   </div>
 </div>
 
-<!-- APPLICATIONS - 横向滑动（增强版：带左右箭头 + 小圆点） -->
+<!-- APPLICATIONS - 横向滑动 -->
 <section class="apps">
   <div class="container">
     <div class="section-tag">Applications</div>
@@ -1591,7 +1592,6 @@ ul {
       </button>
     </div>
     
-    <!-- 滚动提示小圆点 -->
     <div class="scroll-indicator" id="scrollIndicator">
       <div class="scroll-dot active" onclick="scrollToSlide(0)"></div>
       <div class="scroll-dot" onclick="scrollToSlide(1)"></div>
@@ -1600,7 +1600,7 @@ ul {
   </div>
 </section>
 
-<!-- PROCESS -->
+<!-- PROCESS - 增强动态效果（无高亮） -->
 <section class="process">
   <div class="container">
     <div class="process-header">
@@ -1609,19 +1609,19 @@ ul {
       <p class="section-sub" style="margin:0 auto;text-align:center;">One-Stop Service — 7 seamless steps from your idea to your door</p>
     </div>
     <div class="process-flow">
-      <div class="proc-step"><div class="proc-dot-num">01</div><div class="proc-circle"><img src="images/proc-discuss.jpg" alt="Requirement Discussion" loading="lazy"></div><div class="proc-title">Requirement<br>Discussion</div></div>
+      <div class="proc-step" onclick="animateStep(this)"><div class="proc-dot-num">01</div><div class="proc-circle"><img src="images/proc-discuss.jpg" alt="Requirement Discussion" loading="lazy"></div><div class="proc-title">Requirement<br>Discussion</div></div>
       <div class="proc-arrow">›</div>
-      <div class="proc-step"><div class="proc-dot-num">02</div><div class="proc-circle"><img src="images/proc-material.jpg" alt="Material Selection" loading="lazy"></div><div class="proc-title">Material<br>Selection</div></div>
+      <div class="proc-step" onclick="animateStep(this)"><div class="proc-dot-num">02</div><div class="proc-circle"><img src="images/proc-material.jpg" alt="Material Selection" loading="lazy"></div><div class="proc-title">Material<br>Selection</div></div>
       <div class="proc-arrow">›</div>
-      <div class="proc-step"><div class="proc-dot-num">03</div><div class="proc-circle highlight"><img src="images/proc-sample.jpg" alt="Sample Development" loading="lazy"></div><div class="proc-title">Sample Dev</div><div class="proc-note">3–7 Days</div></div>
+      <div class="proc-step" onclick="animateStep(this)"><div class="proc-dot-num">03</div><div class="proc-circle"><img src="images/proc-sample.jpg" alt="Sample Development" loading="lazy"></div><div class="proc-title">Sample Dev</div><div class="proc-note">3–7 Days</div></div>
       <div class="proc-arrow">›</div>
-      <div class="proc-step"><div class="proc-dot-num">04</div><div class="proc-circle"><img src="images/proc-confirm.jpg" alt="Sample Confirmation" loading="lazy"></div><div class="proc-title">Sample<br>Confirmation</div></div>
+      <div class="proc-step" onclick="animateStep(this)"><div class="proc-dot-num">04</div><div class="proc-circle"><img src="images/proc-confirm.jpg" alt="Sample Confirmation" loading="lazy"></div><div class="proc-title">Sample<br>Confirmation</div></div>
       <div class="proc-arrow">›</div>
-      <div class="proc-step"><div class="proc-dot-num">05</div><div class="proc-circle"><img src="images/proc-production.jpg" alt="Mass Production" loading="lazy"></div><div class="proc-title">Mass<br>Production</div></div>
+      <div class="proc-step" onclick="animateStep(this)"><div class="proc-dot-num">05</div><div class="proc-circle"><img src="images/proc-production.jpg" alt="Mass Production" loading="lazy"></div><div class="proc-title">Mass<br>Production</div></div>
       <div class="proc-arrow">›</div>
-      <div class="proc-step"><div class="proc-dot-num">06</div><div class="proc-circle"><img src="images/proc-qc.jpg" alt="Quality Inspection" loading="lazy"></div><div class="proc-title">Quality<br>Inspection</div></div>
+      <div class="proc-step" onclick="animateStep(this)"><div class="proc-dot-num">06</div><div class="proc-circle"><img src="images/proc-qc.jpg" alt="Quality Inspection" loading="lazy"></div><div class="proc-title">Quality<br>Inspection</div></div>
       <div class="proc-arrow">›</div>
-      <div class="proc-step"><div class="proc-dot-num">07</div><div class="proc-circle"><img src="images/proc-ship.jpg" alt="Packing & Shipment" loading="lazy"></div><div class="proc-title">Packing &amp;<br>Shipment</div></div>
+      <div class="proc-step" onclick="animateStep(this)"><div class="proc-dot-num">07</div><div class="proc-circle"><img src="images/proc-ship.jpg" alt="Packing & Shipment" loading="lazy"></div><div class="proc-title">Packing &amp;<br>Shipment</div></div>
     </div>
   </div>
 </section>
@@ -1752,6 +1752,16 @@ if (document.getElementById('appsRow')) {
       dot.classList.toggle('active', i === index);
     });
   });
+}
+
+// Process 步骤点击动态效果
+function animateStep(element) {
+  element.classList.remove('step-animate');
+  void element.offsetWidth;
+  element.classList.add('step-animate');
+  setTimeout(() => {
+    element.classList.remove('step-animate');
+  }, 300);
 }
 </script>
 </body>
