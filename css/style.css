@@ -322,3 +322,49 @@ tbody tr:hover { background: var(--gray-lt); }
     display: none;
   }
 }
+/* 强制 Process 步骤横排显示（覆盖所有设备） */
+.process-flow {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  overflow-x: auto !important;
+}
+
+.proc-step {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  flex: 1 !important;
+  min-width: 110px !important;
+  padding: 0 8px !important;
+}
+
+.proc-arrow {
+  display: flex !important;
+  padding-top: 28px !important;
+  color: var(--blue) !important;
+  font-size: 22px !important;
+  flex-shrink: 0 !important;
+}
+
+/* 手机端保持横排可滑动 */
+@media (max-width: 768px) {
+  .process-flow {
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    gap: 8px !important;
+    padding-bottom: 16px !important;
+  }
+  .proc-step {
+    flex-direction: column !important;
+    min-width: 100px !important;
+    flex-shrink: 0 !important;
+  }
+  .proc-arrow {
+    display: flex !important;
+    padding-top: 28px !important;
+  }
+}
