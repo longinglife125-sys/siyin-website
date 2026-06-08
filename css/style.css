@@ -201,3 +201,124 @@ tbody tr:hover { background: var(--gray-lt); }
   .footer-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
+/* ============================================
+   Applications 滑动效果增强
+   ============================================ */
+
+.apps-slider-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.apps-row {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding: 8px 0 16px;
+  -webkit-overflow-scrolling: touch;
+  flex: 1;
+}
+
+/* 隐藏滚动条但保持功能 */
+.apps-row::-webkit-scrollbar {
+  height: 4px;
+}
+
+.apps-row::-webkit-scrollbar-track {
+  background: var(--gray-bd);
+  border-radius: 4px;
+}
+
+.apps-row::-webkit-scrollbar-thumb {
+  background: var(--blue);
+  border-radius: 4px;
+}
+
+.app-tile, .app-tile-more {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+
+/* 左右箭头按钮 */
+.slider-arrow {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1.5px solid var(--gray-bd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.slider-arrow:hover {
+  background: var(--blue);
+  border-color: var(--blue);
+}
+
+.slider-arrow:hover svg {
+  stroke: #fff;
+}
+
+.slider-arrow svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--blue);
+  fill: none;
+  stroke-width: 2.5;
+}
+
+/* 滚动指示器（小圆点） */
+.scroll-indicator {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.scroll-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gray-bd);
+  transition: all 0.2s;
+}
+
+.scroll-dot.active {
+  width: 24px;
+  border-radius: 4px;
+  background: var(--blue);
+}
+
+/* 手机端适配 */
+@media (max-width: 768px) {
+  .slider-arrow {
+    display: none;
+  }
+  
+  .apps-row {
+    gap: 12px;
+  }
+  
+  .app-tile, .app-tile-more {
+    flex: 0 0 140px;
+    height: 140px;
+  }
+  
+  .scroll-indicator {
+    display: flex;
+  }
+}
+
+@media (min-width: 769px) {
+  .scroll-indicator {
+    display: none;
+  }
+}
